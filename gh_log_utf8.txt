@@ -1,0 +1,801 @@
+﻿build	Set up job	∩╗┐2026-06-28T08:58:21.3088423Z Current runner version: '2.335.1'
+build	Set up job	2026-06-28T08:58:21.3114923Z ##[group]Runner Image Provisioner
+build	Set up job	2026-06-28T08:58:21.3115901Z Hosted Compute Agent
+build	Set up job	2026-06-28T08:58:21.3116945Z Version: 20260611.554
+build	Set up job	2026-06-28T08:58:21.3117769Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+build	Set up job	2026-06-28T08:58:21.3118583Z Build Date: 2026-06-11T21:40:46Z
+build	Set up job	2026-06-28T08:58:21.3119286Z Worker ID: {ac7f6229-3aa3-45b0-aa95-ff98bc644ed0}
+build	Set up job	2026-06-28T08:58:21.3120012Z Azure Region: northcentralus
+build	Set up job	2026-06-28T08:58:21.3120704Z ##[endgroup]
+build	Set up job	2026-06-28T08:58:21.3122228Z ##[group]Operating System
+build	Set up job	2026-06-28T08:58:21.3123024Z Ubuntu
+build	Set up job	2026-06-28T08:58:21.3123544Z 24.04.4
+build	Set up job	2026-06-28T08:58:21.3124041Z LTS
+build	Set up job	2026-06-28T08:58:21.3124612Z ##[endgroup]
+build	Set up job	2026-06-28T08:58:21.3125194Z ##[group]Runner Image
+build	Set up job	2026-06-28T08:58:21.3126224Z Image: ubuntu-24.04
+build	Set up job	2026-06-28T08:58:21.3127227Z Version: 20260622.220.1
+build	Set up job	2026-06-28T08:58:21.3128321Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260622.220/images/ubuntu/Ubuntu2404-Readme.md
+build	Set up job	2026-06-28T08:58:21.3130215Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260622.220
+build	Set up job	2026-06-28T08:58:21.3131224Z ##[endgroup]
+build	Set up job	2026-06-28T08:58:21.3132419Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2026-06-28T08:58:21.3134649Z Contents: read
+build	Set up job	2026-06-28T08:58:21.3135310Z Metadata: read
+build	Set up job	2026-06-28T08:58:21.3135931Z Packages: read
+build	Set up job	2026-06-28T08:58:21.3136789Z ##[endgroup]
+build	Set up job	2026-06-28T08:58:21.3138924Z Secret source: Actions
+build	Set up job	2026-06-28T08:58:21.3139959Z Prepare workflow directory
+build	Set up job	2026-06-28T08:58:21.3507521Z Prepare all required actions
+build	Set up job	2026-06-28T08:58:21.3545922Z Getting action download info
+build	Set up job	2026-06-28T08:58:21.5944667Z Download action repository 'actions/checkout@v3' (SHA:f43a0e5ff2bd294095638e18286ca9a3d1956744)
+build	Set up job	2026-06-28T08:58:21.6980267Z Download action repository 'actions/setup-java@v3' (SHA:17f84c3641ba7b8f6deff6309fc4c864478f5d62)
+build	Set up job	2026-06-28T08:58:22.0785711Z Download action repository 'gradle/actions@v3' (SHA:d9c87d481d55275bb5441eef3fe0e46805f9ef70)
+build	Set up job	2026-06-28T08:58:22.7970565Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+build	Set up job	2026-06-28T08:58:23.0720310Z Complete job name: build
+build	Run actions/checkout@v3	∩╗┐2026-06-28T08:58:23.1622187Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1633728Z ##[group]Run actions/checkout@v3
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1634994Z with:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1635948Z   repository: teamantigravity/gravityinstaller
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1647541Z   token: ***
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1648402Z   ssh-strict: true
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1649308Z   persist-credentials: true
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1650275Z   clean: true
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1651159Z   sparse-checkout-cone-mode: true
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1652217Z   fetch-depth: 1
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1653091Z   fetch-tags: false
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1654010Z   lfs: false
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1654849Z   submodules: false
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1655750Z   set-safe-directory: true
+build	Run actions/checkout@v3	2026-06-28T08:58:23.1657175Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2440687Z (node:2196) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2443286Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2534787Z Syncing repository: teamantigravity/gravityinstaller
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2538279Z ##[group]Getting Git version info
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2539870Z Working directory is '/home/runner/work/gravityinstaller/gravityinstaller'
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2542220Z [command]/usr/bin/git version
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2594186Z git version 2.54.0
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2618083Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2633632Z Temporarily overriding HOME='/home/runner/work/_temp/f89db60c-704f-4270-a432-021982c25f00' before making global git config changes
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2637220Z Adding repository directory to the temporary git global config as a safe directory
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2640852Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gravityinstaller/gravityinstaller
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2691092Z Deleting the contents of '/home/runner/work/gravityinstaller/gravityinstaller'
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2696006Z ##[group]Initializing the repository
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2700322Z [command]/usr/bin/git init /home/runner/work/gravityinstaller/gravityinstaller
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2812119Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2814358Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2817654Z hint: to use in all of your new repositories, which will suppress this warning,
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2820527Z hint: call:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2821825Z hint:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2823457Z hint: 	git config --global init.defaultBranch <name>
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2825605Z hint:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2827709Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2830797Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2833230Z hint:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2834550Z hint: 	git branch -m <name>
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2836259Z hint:
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2929871Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2934293Z Initialized empty Git repository in /home/runner/work/gravityinstaller/gravityinstaller/.git/
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2962555Z [command]/usr/bin/git remote add origin https://github.com/teamantigravity/gravityinstaller
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2965992Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2967837Z ##[group]Disabling automatic garbage collection
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2969142Z [command]/usr/bin/git config --local gc.auto 0
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2971829Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2973143Z ##[group]Setting up auth
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2974485Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Run actions/checkout@v3	2026-06-28T08:58:23.2979108Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Run actions/checkout@v3	2026-06-28T08:58:23.3353421Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Run actions/checkout@v3	2026-06-28T08:58:23.3391208Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Run actions/checkout@v3	2026-06-28T08:58:23.3633275Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Run actions/checkout@v3	2026-06-28T08:58:23.3683025Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.3699944Z ##[group]Fetching the repository
+build	Run actions/checkout@v3	2026-06-28T08:58:23.3704862Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +3020bc0663b0806863db3a6535314cb7f9e74316:refs/remotes/origin/main
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5782886Z remote: Enumerating objects: 101, done.        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5785075Z remote: Counting objects:   0% (1/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5786862Z remote: Counting objects:   1% (2/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5788133Z remote: Counting objects:   2% (3/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5789353Z remote: Counting objects:   3% (4/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5790572Z remote: Counting objects:   4% (5/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5792457Z remote: Counting objects:   5% (6/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5794660Z remote: Counting objects:   6% (7/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5796017Z remote: Counting objects:   7% (8/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5797443Z remote: Counting objects:   8% (9/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5798672Z remote: Counting objects:   9% (10/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5799921Z remote: Counting objects:  10% (11/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5801439Z remote: Counting objects:  11% (12/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5802658Z remote: Counting objects:  12% (13/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5803882Z remote: Counting objects:  13% (14/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5805118Z remote: Counting objects:  14% (15/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5806326Z remote: Counting objects:  15% (16/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5807711Z remote: Counting objects:  16% (17/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5808928Z remote: Counting objects:  17% (18/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5810173Z remote: Counting objects:  18% (19/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5811414Z remote: Counting objects:  19% (20/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5812627Z remote: Counting objects:  20% (21/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5813830Z remote: Counting objects:  21% (22/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5815038Z remote: Counting objects:  22% (23/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5816251Z remote: Counting objects:  23% (24/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5817578Z remote: Counting objects:  24% (25/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5819256Z remote: Counting objects:  25% (26/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5821413Z remote: Counting objects:  26% (27/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5823297Z remote: Counting objects:  27% (28/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5824566Z remote: Counting objects:  28% (29/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5825798Z remote: Counting objects:  29% (30/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5827213Z remote: Counting objects:  30% (31/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5828612Z remote: Counting objects:  31% (32/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5829834Z remote: Counting objects:  32% (33/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5831046Z remote: Counting objects:  33% (34/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5832257Z remote: Counting objects:  34% (35/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5833460Z remote: Counting objects:  35% (36/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5834682Z remote: Counting objects:  36% (37/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5835885Z remote: Counting objects:  37% (38/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5837587Z remote: Counting objects:  38% (39/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5838837Z remote: Counting objects:  39% (40/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5840907Z remote: Counting objects:  40% (41/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5842848Z remote: Counting objects:  41% (42/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5844893Z remote: Counting objects:  42% (43/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5846142Z remote: Counting objects:  43% (44/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5847709Z remote: Counting objects:  44% (45/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5849249Z remote: Counting objects:  45% (46/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5850504Z remote: Counting objects:  46% (47/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5851726Z remote: Counting objects:  47% (48/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5852939Z remote: Counting objects:  48% (49/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5854169Z remote: Counting objects:  49% (50/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5855384Z remote: Counting objects:  50% (51/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5856968Z remote: Counting objects:  51% (52/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5858213Z remote: Counting objects:  52% (53/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5859432Z remote: Counting objects:  53% (54/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5860648Z remote: Counting objects:  54% (55/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5861852Z remote: Counting objects:  55% (56/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5863054Z remote: Counting objects:  56% (57/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5864261Z remote: Counting objects:  57% (58/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5865535Z remote: Counting objects:  58% (59/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5867000Z remote: Counting objects:  59% (60/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5868245Z remote: Counting objects:  60% (61/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5869452Z remote: Counting objects:  61% (62/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5870668Z remote: Counting objects:  62% (63/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5871865Z remote: Counting objects:  63% (64/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5873411Z remote: Counting objects:  64% (65/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5874624Z remote: Counting objects:  65% (66/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5875830Z remote: Counting objects:  66% (67/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5877286Z remote: Counting objects:  67% (68/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5878502Z remote: Counting objects:  68% (69/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5880481Z remote: Counting objects:  69% (70/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5882778Z remote: Counting objects:  70% (71/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5884934Z remote: Counting objects:  71% (72/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5886255Z remote: Counting objects:  72% (73/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5887815Z remote: Counting objects:  73% (74/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5889049Z remote: Counting objects:  74% (75/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5890260Z remote: Counting objects:  75% (76/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5891473Z remote: Counting objects:  76% (77/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5892679Z remote: Counting objects:  77% (78/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5893908Z remote: Counting objects:  78% (79/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5895125Z remote: Counting objects:  79% (80/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5896362Z remote: Counting objects:  80% (81/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5897963Z remote: Counting objects:  81% (82/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5899175Z remote: Counting objects:  82% (83/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5900375Z remote: Counting objects:  83% (84/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5901586Z remote: Counting objects:  84% (85/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5902795Z remote: Counting objects:  85% (86/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5904015Z remote: Counting objects:  86% (87/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5905225Z remote: Counting objects:  87% (88/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5906426Z remote: Counting objects:  88% (89/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5907909Z remote: Counting objects:  89% (90/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5909117Z remote: Counting objects:  90% (91/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5910339Z remote: Counting objects:  91% (92/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5911536Z remote: Counting objects:  92% (93/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5912947Z remote: Counting objects:  93% (94/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5914149Z remote: Counting objects:  94% (95/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5915360Z remote: Counting objects:  95% (96/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5916788Z remote: Counting objects:  96% (97/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5918013Z remote: Counting objects:  97% (98/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5919212Z remote: Counting objects:  98% (99/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5920421Z remote: Counting objects:  99% (100/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5921637Z remote: Counting objects: 100% (101/101)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5922911Z remote: Counting objects: 100% (101/101), done.        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5924197Z remote: Compressing objects:   1% (1/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5925439Z remote: Compressing objects:   2% (2/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5926945Z remote: Compressing objects:   3% (3/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5928231Z remote: Compressing objects:   4% (4/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5929471Z remote: Compressing objects:   5% (5/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5930920Z remote: Compressing objects:   7% (6/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5932673Z remote: Compressing objects:   8% (7/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5935237Z remote: Compressing objects:   9% (8/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5937640Z remote: Compressing objects:  10% (9/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5939149Z remote: Compressing objects:  11% (10/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5940399Z remote: Compressing objects:  12% (11/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5941646Z remote: Compressing objects:  14% (12/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5942897Z remote: Compressing objects:  15% (13/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5944135Z remote: Compressing objects:  16% (14/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5945865Z remote: Compressing objects:  17% (15/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5948519Z remote: Compressing objects:  18% (16/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5950714Z remote: Compressing objects:  20% (17/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5952709Z remote: Compressing objects:  21% (18/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5954020Z remote: Compressing objects:  22% (19/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5955276Z remote: Compressing objects:  23% (20/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5956698Z remote: Compressing objects:  24% (21/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5957962Z remote: Compressing objects:  25% (22/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5959216Z remote: Compressing objects:  27% (23/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5960458Z remote: Compressing objects:  28% (24/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5961709Z remote: Compressing objects:  29% (25/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5962952Z remote: Compressing objects:  30% (26/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5964195Z remote: Compressing objects:  31% (27/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5965439Z remote: Compressing objects:  32% (28/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5966827Z remote: Compressing objects:  34% (29/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5968077Z remote: Compressing objects:  35% (30/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5969312Z remote: Compressing objects:  36% (31/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5970572Z remote: Compressing objects:  37% (32/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5971816Z remote: Compressing objects:  38% (33/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5973048Z remote: Compressing objects:  40% (34/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5975575Z remote: Compressing objects:  41% (35/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5977993Z remote: Compressing objects:  42% (36/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5980168Z remote: Compressing objects:  43% (37/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5981752Z remote: Compressing objects:  44% (38/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5982999Z remote: Compressing objects:  45% (39/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5984251Z remote: Compressing objects:  47% (40/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5985497Z remote: Compressing objects:  48% (41/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5987052Z remote: Compressing objects:  49% (42/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5988336Z remote: Compressing objects:  50% (43/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5989635Z remote: Compressing objects:  51% (44/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5991346Z remote: Compressing objects:  52% (45/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5992761Z remote: Compressing objects:  54% (46/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5994297Z remote: Compressing objects:  55% (47/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5996964Z remote: Compressing objects:  56% (48/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.5999175Z remote: Compressing objects:  57% (49/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6001359Z remote: Compressing objects:  58% (50/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6003575Z remote: Compressing objects:  60% (51/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6005766Z remote: Compressing objects:  61% (52/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6007369Z remote: Compressing objects:  62% (53/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6008626Z remote: Compressing objects:  63% (54/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6009891Z remote: Compressing objects:  64% (55/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6011140Z remote: Compressing objects:  65% (56/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6012375Z remote: Compressing objects:  67% (57/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6013636Z remote: Compressing objects:  68% (58/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6014886Z remote: Compressing objects:  69% (59/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6016133Z remote: Compressing objects:  70% (60/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6017658Z remote: Compressing objects:  71% (61/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6018909Z remote: Compressing objects:  72% (62/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6020155Z remote: Compressing objects:  74% (63/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6021398Z remote: Compressing objects:  75% (64/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6022642Z remote: Compressing objects:  76% (65/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6023894Z remote: Compressing objects:  77% (66/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6025179Z remote: Compressing objects:  78% (67/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6026974Z remote: Compressing objects:  80% (68/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6028274Z remote: Compressing objects:  81% (69/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6029541Z remote: Compressing objects:  82% (70/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6030777Z remote: Compressing objects:  83% (71/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6032029Z remote: Compressing objects:  84% (72/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6033281Z remote: Compressing objects:  85% (73/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6034528Z remote: Compressing objects:  87% (74/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6035761Z remote: Compressing objects:  88% (75/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6037377Z remote: Compressing objects:  89% (76/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6038630Z remote: Compressing objects:  90% (77/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6039877Z remote: Compressing objects:  91% (78/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6041120Z remote: Compressing objects:  92% (79/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6042368Z remote: Compressing objects:  94% (80/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6043623Z remote: Compressing objects:  95% (81/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6044857Z remote: Compressing objects:  96% (82/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6046107Z remote: Compressing objects:  97% (83/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6047573Z remote: Compressing objects:  98% (84/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6048824Z remote: Compressing objects: 100% (85/85)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6050152Z remote: Compressing objects: 100% (85/85), done.        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6051502Z Receiving objects:   0% (1/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6052491Z Receiving objects:   1% (2/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6053474Z Receiving objects:   2% (3/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6054446Z Receiving objects:   3% (4/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6055439Z Receiving objects:   4% (5/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6056412Z Receiving objects:   5% (6/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6057605Z Receiving objects:   6% (7/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6058583Z Receiving objects:   7% (8/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6059566Z Receiving objects:   8% (9/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6060580Z Receiving objects:   9% (10/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6061582Z Receiving objects:  10% (11/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6062585Z Receiving objects:  11% (12/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6063757Z Receiving objects:  12% (13/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6064760Z Receiving objects:  13% (14/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6065763Z Receiving objects:  14% (15/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6067050Z Receiving objects:  15% (16/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6068088Z Receiving objects:  16% (17/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6069097Z Receiving objects:  17% (18/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6070104Z Receiving objects:  18% (19/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6071116Z Receiving objects:  19% (20/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6072135Z Receiving objects:  20% (21/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6073143Z Receiving objects:  21% (22/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6074136Z Receiving objects:  22% (23/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6075144Z Receiving objects:  23% (24/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6076142Z Receiving objects:  24% (25/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6077406Z Receiving objects:  25% (26/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6078417Z Receiving objects:  26% (27/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6079422Z Receiving objects:  27% (28/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6080431Z Receiving objects:  28% (29/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6081435Z Receiving objects:  29% (30/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6082434Z Receiving objects:  30% (31/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6083436Z Receiving objects:  31% (32/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6084437Z Receiving objects:  32% (33/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6086188Z Receiving objects:  33% (34/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6088865Z Receiving objects:  34% (35/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6090659Z Receiving objects:  35% (36/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6092420Z Receiving objects:  36% (37/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6094171Z Receiving objects:  37% (38/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6096006Z Receiving objects:  38% (39/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6097506Z Receiving objects:  39% (40/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6098532Z Receiving objects:  40% (41/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6099989Z Receiving objects:  41% (42/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6102128Z Receiving objects:  42% (43/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6103906Z Receiving objects:  43% (44/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6105342Z Receiving objects:  44% (45/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6106391Z Receiving objects:  45% (46/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6107603Z Receiving objects:  46% (47/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6108616Z Receiving objects:  47% (48/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6109628Z Receiving objects:  48% (49/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6110634Z Receiving objects:  49% (50/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6111643Z Receiving objects:  50% (51/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6112641Z Receiving objects:  51% (52/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6113634Z Receiving objects:  52% (53/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6114639Z Receiving objects:  53% (54/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6115633Z Receiving objects:  54% (55/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6116784Z Receiving objects:  55% (56/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6117837Z Receiving objects:  56% (57/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6118829Z Receiving objects:  57% (58/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6119832Z Receiving objects:  58% (59/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6120828Z Receiving objects:  59% (60/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6121812Z Receiving objects:  60% (61/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6122809Z Receiving objects:  61% (62/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6123801Z Receiving objects:  62% (63/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6124785Z Receiving objects:  63% (64/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6125770Z Receiving objects:  64% (65/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6126865Z Receiving objects:  65% (66/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6128267Z Receiving objects:  66% (67/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6129659Z Receiving objects:  67% (68/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6131929Z Receiving objects:  68% (69/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6150994Z Receiving objects:  69% (70/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6153028Z Receiving objects:  70% (71/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6154830Z Receiving objects:  71% (72/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6155915Z Receiving objects:  72% (73/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6245904Z Receiving objects:  73% (74/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6247887Z Receiving objects:  74% (75/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6249330Z Receiving objects:  75% (76/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6251391Z Receiving objects:  76% (77/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6253043Z Receiving objects:  77% (78/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6259171Z Receiving objects:  78% (79/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6260725Z Receiving objects:  79% (80/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6262213Z Receiving objects:  80% (81/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6263706Z Receiving objects:  81% (82/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6265199Z Receiving objects:  82% (83/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6266977Z Receiving objects:  83% (84/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6268576Z Receiving objects:  84% (85/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6270086Z Receiving objects:  85% (86/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6271635Z Receiving objects:  86% (87/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6273193Z Receiving objects:  87% (88/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6274739Z Receiving objects:  88% (89/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6276344Z Receiving objects:  89% (90/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6278146Z Receiving objects:  90% (91/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6279753Z Receiving objects:  91% (92/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6281339Z Receiving objects:  92% (93/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6282999Z Receiving objects:  93% (94/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6285262Z remote: Total 101 (delta 1), reused 95 (delta 1), pack-reused 0 (from 0)        
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6287225Z Receiving objects:  94% (95/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6288291Z Receiving objects:  95% (96/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6289282Z Receiving objects:  96% (97/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6290255Z Receiving objects:  97% (98/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6291233Z Receiving objects:  98% (99/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6292215Z Receiving objects:  99% (100/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6293206Z Receiving objects: 100% (101/101)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6294424Z Receiving objects: 100% (101/101), 164.89 KiB | 4.12 MiB/s, done.
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6295759Z Resolving deltas:   0% (0/1)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6297199Z Resolving deltas: 100% (1/1)
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6298659Z Resolving deltas: 100% (1/1), done.
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6421808Z From https://github.com/teamantigravity/gravityinstaller
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6424719Z  * [new ref]         3020bc0663b0806863db3a6535314cb7f9e74316 -> origin/main
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6461121Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6464059Z ##[group]Determining the checkout info
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6467423Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6469945Z ##[group]Checking out the ref
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6472493Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6562805Z Switched to a new branch 'main'
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6565550Z branch 'main' set up to track 'origin/main'.
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6573454Z ##[endgroup]
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6609617Z [command]/usr/bin/git log -1 --format='%H'
+build	Run actions/checkout@v3	2026-06-28T08:58:23.6632108Z '3020bc0663b0806863db3a6535314cb7f9e74316'
+build	set up JDK 17	∩╗┐2026-06-28T08:58:23.6998935Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build	set up JDK 17	2026-06-28T08:58:23.7003779Z ##[group]Run actions/setup-java@v3
+build	set up JDK 17	2026-06-28T08:58:23.7004741Z with:
+build	set up JDK 17	2026-06-28T08:58:23.7005483Z   java-version: 17
+build	set up JDK 17	2026-06-28T08:58:23.7006305Z   distribution: temurin
+build	set up JDK 17	2026-06-28T08:58:23.7007350Z   cache: gradle
+build	set up JDK 17	2026-06-28T08:58:23.7008140Z   java-package: jdk
+build	set up JDK 17	2026-06-28T08:58:23.7008957Z   check-latest: false
+build	set up JDK 17	2026-06-28T08:58:23.7009784Z   server-id: github
+build	set up JDK 17	2026-06-28T08:58:23.7010626Z   server-username: GITHUB_ACTOR
+build	set up JDK 17	2026-06-28T08:58:23.7011596Z   server-password: GITHUB_TOKEN
+build	set up JDK 17	2026-06-28T08:58:23.7012563Z   overwrite-settings: true
+build	set up JDK 17	2026-06-28T08:58:23.7013461Z   job-status: success
+build	set up JDK 17	2026-06-28T08:58:23.7024239Z   token: ***
+build	set up JDK 17	2026-06-28T08:58:23.7025023Z ##[endgroup]
+build	set up JDK 17	2026-06-28T08:58:23.8735774Z ##[group]Installed distributions
+build	set up JDK 17	2026-06-28T08:58:23.8801103Z Resolved Java 17.0.19+10 from tool-cache
+build	set up JDK 17	2026-06-28T08:58:23.8802428Z Setting Java 17.0.19+10 as the default
+build	set up JDK 17	2026-06-28T08:58:23.8813719Z (node:2285) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	set up JDK 17	2026-06-28T08:58:23.8817437Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	set up JDK 17	2026-06-28T08:58:23.8835959Z Creating toolchains.xml for JDK version 17 from temurin
+build	set up JDK 17	2026-06-28T08:58:23.8916332Z Writing to /home/runner/.m2/toolchains.xml
+build	set up JDK 17	2026-06-28T08:58:23.8917859Z 
+build	set up JDK 17	2026-06-28T08:58:23.8918476Z Java configuration:
+build	set up JDK 17	2026-06-28T08:58:23.8919850Z   Distribution: temurin
+build	set up JDK 17	2026-06-28T08:58:23.8921290Z   Version: 17.0.19+10
+build	set up JDK 17	2026-06-28T08:58:23.8923181Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	set up JDK 17	2026-06-28T08:58:23.8924723Z 
+build	set up JDK 17	2026-06-28T08:58:23.8925958Z ##[endgroup]
+build	set up JDK 17	2026-06-28T08:58:23.8942694Z Creating settings.xml with server-id: github
+build	set up JDK 17	2026-06-28T08:58:23.8944819Z Writing to /home/runner/.m2/settings.xml
+build	set up JDK 17	2026-06-28T08:58:24.0273285Z gradle cache is not found
+build	Setup Gradle	∩╗┐2026-06-28T08:58:24.0736447Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build	Setup Gradle	2026-06-28T08:58:24.0741342Z ##[group]Run gradle/actions/setup-gradle@v3
+build	Setup Gradle	2026-06-28T08:58:24.0742487Z with:
+build	Setup Gradle	2026-06-28T08:58:24.0743238Z   gradle-version: 8.10.2
+build	Setup Gradle	2026-06-28T08:58:24.0744128Z   cache-disabled: false
+build	Setup Gradle	2026-06-28T08:58:24.0744995Z   cache-read-only: false
+build	Setup Gradle	2026-06-28T08:58:24.0745905Z   cache-write-only: false
+build	Setup Gradle	2026-06-28T08:58:24.0746982Z   cache-overwrite-existing: false
+build	Setup Gradle	2026-06-28T08:58:24.0748102Z   gradle-home-cache-includes: caches
+build	Setup Gradle	notifications
+build	Setup Gradle	
+build	Setup Gradle	2026-06-28T08:58:24.0749308Z   gradle-home-cache-cleanup: false
+build	Setup Gradle	2026-06-28T08:58:24.0750301Z   add-job-summary: always
+build	Setup Gradle	2026-06-28T08:58:24.0751264Z   add-job-summary-as-pr-comment: never
+build	Setup Gradle	2026-06-28T08:58:24.0752321Z   dependency-graph: disabled
+build	Setup Gradle	2026-06-28T08:58:24.0753607Z   dependency-graph-continue-on-failure: true
+build	Setup Gradle	2026-06-28T08:58:24.0754704Z   build-scan-publish: false
+build	Setup Gradle	2026-06-28T08:58:24.0755634Z   validate-wrappers: false
+build	Setup Gradle	2026-06-28T08:58:24.0756687Z   generate-job-summary: true
+build	Setup Gradle	2026-06-28T08:58:24.0757673Z   gradle-home-cache-strict-match: false
+build	Setup Gradle	2026-06-28T08:58:24.0758731Z   workflow-job-context: null
+build	Setup Gradle	2026-06-28T08:58:24.0769513Z   github-token: ***
+build	Setup Gradle	2026-06-28T08:58:24.0770327Z env:
+build	Setup Gradle	2026-06-28T08:58:24.0771395Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Setup Gradle	2026-06-28T08:58:24.0773147Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Setup Gradle	2026-06-28T08:58:24.0774549Z ##[endgroup]
+build	Setup Gradle	2026-06-28T08:58:24.2685460Z (node:2298) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Setup Gradle	2026-06-28T08:58:24.2688562Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Setup Gradle	2026-06-28T08:58:24.4441989Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+build	Setup Gradle	2026-06-28T08:58:24.4444969Z ##[group]Restore Gradle state from cache
+build	Setup Gradle	2026-06-28T08:58:24.4979831Z ##[warning]Failed to restore gradle-home-v1|Linux|build[882c05fa8cf8c918d078dc2942eb193a]-3020bc0663b0806863db3a6535314cb7f9e74316: Error: Cache service responded with 400
+build	Setup Gradle	2026-06-28T08:58:24.5030457Z Gradle User Home cache not found. Will initialize empty.
+build	Setup Gradle	2026-06-28T08:58:24.5031633Z ##[endgroup]
+build	Setup Gradle	2026-06-28T08:58:24.5732793Z ##[group]Provision Gradle 8.10.2
+build	Setup Gradle	2026-06-28T08:58:24.6070560Z ##[warning]Restore Gradle distribution 8.10.2 failed: Error: Cache service responded with 400
+build	Setup Gradle	2026-06-28T08:58:24.6073264Z Gradle distribution 8.10.2 not found in cache. Will download.
+build	Setup Gradle	2026-06-28T08:58:25.3964119Z Downloaded https://services.gradle.org/distributions/gradle-8.10.2-bin.zip to /home/runner/gradle-installations/downloads/gradle-8.10.2-bin.zip (size 136715430)
+build	Setup Gradle	2026-06-28T08:58:25.4140969Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Setup Gradle	2026-06-28T08:58:25.6324138Z ##[warning]Save Gradle distribution 8.10.2 failed: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0MeJAagAAAAAb48KpwdhVT4+R8eZR6P6sQ0hJMzBFREdFMDMxOABFZGdl
+build	Setup Gradle	2026-06-28T08:58:25.6343627Z [command]/usr/bin/unzip -o -q /home/runner/gradle-installations/downloads/gradle-8.10.2-bin.zip
+build	Setup Gradle	2026-06-28T08:58:26.6222447Z Extracted Gradle 8.10.2 to /home/runner/gradle-installations/installs/gradle-8.10.2
+build	Setup Gradle	2026-06-28T08:58:26.6224868Z Provisioned Gradle executable /home/runner/gradle-installations/installs/gradle-8.10.2/bin/gradle
+build	Setup Gradle	2026-06-28T08:58:26.6226442Z ##[endgroup]
+build	Create .env file for Ads	∩╗┐2026-06-28T08:58:26.6401457Z ##[group]Run echo "ADMOB_APP_ID=ca-app-pub-4989086156410627~4805823860" >> .env
+build	Create .env file for Ads	2026-06-28T08:58:26.6402103Z ^[[36;1mecho "ADMOB_APP_ID=ca-app-pub-4989086156410627~4805823860" >> .env^[[0m
+build	Create .env file for Ads	2026-06-28T08:58:26.6402597Z ^[[36;1mecho "ADMOB_BANNER_ID=ca-app-pub-4989086156410627/2211450115" >> .env^[[0m
+build	Create .env file for Ads	2026-06-28T08:58:26.6403113Z ^[[36;1mecho "ADMOB_INTERSTITIAL_ID=ca-app-pub-4989086156410627/4094955965" >> .env^[[0m
+build	Create .env file for Ads	2026-06-28T08:58:26.6403636Z ^[[36;1mecho "ADMOB_APP_OPEN_ID=ca-app-pub-4989086156410627/1105830543" >> .env^[[0m
+build	Create .env file for Ads	2026-06-28T08:58:26.6596265Z shell: /usr/bin/bash -e {0}
+build	Create .env file for Ads	2026-06-28T08:58:26.6596849Z env:
+build	Create .env file for Ads	2026-06-28T08:58:26.6597216Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Create .env file for Ads	2026-06-28T08:58:26.6597771Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Create .env file for Ads	2026-06-28T08:58:26.6598240Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+build	Create .env file for Ads	2026-06-28T08:58:26.6598581Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+build	Create .env file for Ads	2026-06-28T08:58:26.6598909Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+build	Create .env file for Ads	2026-06-28T08:58:26.6599435Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+build	Create .env file for Ads	2026-06-28T08:58:26.6599952Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+build	Create .env file for Ads	2026-06-28T08:58:26.6600524Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+build	Create .env file for Ads	2026-06-28T08:58:26.6600807Z ##[endgroup]
+build	Generate Release Keystore	∩╗┐2026-06-28T08:58:26.6755174Z ##[group]Run keytool -genkey -v -keystore my-upload-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload -dname "CN=Gravity Installer, OU=Gravity, O=Gravity, L=Earth, ST=Earth, C=US" -storepass "android" -keypass "android"
+build	Generate Release Keystore	2026-06-28T08:58:26.6759555Z ^[[36;1mkeytool -genkey -v -keystore my-upload-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload -dname "CN=Gravity Installer, OU=Gravity, O=Gravity, L=Earth, ST=Earth, C=US" -storepass "android" -keypass "android"^[[0m
+build	Generate Release Keystore	2026-06-28T08:58:26.6810051Z shell: /usr/bin/bash -e {0}
+build	Generate Release Keystore	2026-06-28T08:58:26.6810352Z env:
+build	Generate Release Keystore	2026-06-28T08:58:26.6810705Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Generate Release Keystore	2026-06-28T08:58:26.6811845Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Generate Release Keystore	2026-06-28T08:58:26.6812943Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+build	Generate Release Keystore	2026-06-28T08:58:26.6813469Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+build	Generate Release Keystore	2026-06-28T08:58:26.6814370Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+build	Generate Release Keystore	2026-06-28T08:58:26.6815580Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+build	Generate Release Keystore	2026-06-28T08:58:26.6816375Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+build	Generate Release Keystore	2026-06-28T08:58:26.6818215Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+build	Generate Release Keystore	2026-06-28T08:58:26.6819008Z ##[endgroup]
+build	Generate Release Keystore	2026-06-28T08:58:27.3241412Z Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+build	Generate Release Keystore	2026-06-28T08:58:27.3264923Z 	for: CN=Gravity Installer, OU=Gravity, O=Gravity, L=Earth, ST=Earth, C=US
+build	Generate Release Keystore	2026-06-28T08:58:27.4921818Z [Storing my-upload-key.jks]
+build	Build Release APK and AAB	∩╗┐2026-06-28T08:58:27.6061208Z ##[group]Run gradle assembleRelease bundleRelease --stacktrace
+build	Build Release APK and AAB	2026-06-28T08:58:27.6061693Z ^[[36;1mgradle assembleRelease bundleRelease --stacktrace^[[0m
+build	Build Release APK and AAB	2026-06-28T08:58:27.6093128Z shell: /usr/bin/bash -e {0}
+build	Build Release APK and AAB	2026-06-28T08:58:27.6093386Z env:
+build	Build Release APK and AAB	2026-06-28T08:58:27.6093715Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Build Release APK and AAB	2026-06-28T08:58:27.6094216Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build	Build Release APK and AAB	2026-06-28T08:58:27.6094639Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+build	Build Release APK and AAB	2026-06-28T08:58:27.6094968Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+build	Build Release APK and AAB	2026-06-28T08:58:27.6095271Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+build	Build Release APK and AAB	2026-06-28T08:58:27.6095711Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+build	Build Release APK and AAB	2026-06-28T08:58:27.6096201Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+build	Build Release APK and AAB	2026-06-28T08:58:27.6096747Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+build	Build Release APK and AAB	2026-06-28T08:58:27.6097197Z   KEYSTORE_PATH: /home/runner/work/gravityinstaller/gravityinstaller/my-upload-key.jks
+build	Build Release APK and AAB	2026-06-28T08:58:27.6097655Z   STORE_PASSWORD: android
+build	Build Release APK and AAB	2026-06-28T08:58:27.6097878Z   KEY_PASSWORD: android
+build	Build Release APK and AAB	2026-06-28T08:58:27.6098098Z ##[endgroup]
+build	Build Release APK and AAB	2026-06-28T08:58:28.2231593Z 
+build	Build Release APK and AAB	2026-06-28T08:58:28.2232790Z Welcome to Gradle 8.10.2!
+build	Build Release APK and AAB	2026-06-28T08:58:28.2233219Z 
+build	Build Release APK and AAB	2026-06-28T08:58:28.2235673Z Here are the highlights of this release:
+build	Build Release APK and AAB	2026-06-28T08:58:28.2236318Z  - Support for Java 23
+build	Build Release APK and AAB	2026-06-28T08:58:28.2238222Z  - Faster configuration cache
+build	Build Release APK and AAB	2026-06-28T08:58:28.2239613Z  - Better configuration cache reports
+build	Build Release APK and AAB	2026-06-28T08:58:28.2240108Z 
+build	Build Release APK and AAB	2026-06-28T08:58:28.2242805Z For more details see https://docs.gradle.org/8.10.2/release-notes.html
+build	Build Release APK and AAB	2026-06-28T08:58:28.2243427Z 
+build	Build Release APK and AAB	2026-06-28T08:58:28.4210851Z Starting a Gradle Daemon (subsequent builds will be faster)
+build	Build Release APK and AAB	2026-06-28T08:58:31.0229065Z Calculating task graph as no cached configuration is available for tasks: assembleRelease bundleRelease
+build	Build Release APK and AAB	2026-06-28T08:59:41.3237188Z 
+build	Build Release APK and AAB	2026-06-28T08:59:41.3287489Z FAILURE: Build failed with an exception.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3316941Z 
+build	Build Release APK and AAB	2026-06-28T08:59:41.3367150Z * What went wrong:
+build	Build Release APK and AAB	2026-06-28T08:59:41.3391490Z Configuration cache state could not be cached: field `__librarySourceSets__` of task `:app:mapReleaseSourceSetPaths` of type `com.android.build.gradle.tasks.MapSourceSetPathsTask`: error writing value of type 'org.gradle.api.internal.file.collections.DefaultConfigurableFileCollection'
+build	Build Release APK and AAB	2026-06-28T08:59:41.3427489Z > Could not resolve all files for configuration ':app:releaseRuntimeClasspath'.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3444207Z    > Could not find com.github.topjohnwu.libsu:core:5.2.2.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3468487Z      Searched in the following locations:
+build	Build Release APK and AAB	2026-06-28T08:59:41.3509154Z        - https://dl.google.com/dl/android/maven2/com/github/topjohnwu/libsu/core/5.2.2/core-5.2.2.pom
+build	Build Release APK and AAB	2026-06-28T08:59:41.3537455Z        - https://repo.maven.apache.org/maven2/com/github/topjohnwu/libsu/core/5.2.2/core-5.2.2.pom
+build	Build Release APK and AAB	2026-06-28T08:59:41.3607179Z      Required by:
+build	Build Release APK and AAB	2026-06-28T08:59:41.3619557Z Configuration cache entry discarded due to serialization error.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3637135Z          project :app
+build	Build Release APK and AAB	2026-06-28T08:59:41.3637394Z 
+build	Build Release APK and AAB	2026-06-28T08:59:41.3637547Z * Try:
+build	Build Release APK and AAB	2026-06-28T08:59:41.3637988Z > Run with --info or --debug option to get more log output.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3638588Z > Run with --scan to get full insights.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3639091Z > Get more help at https://help.gradle.org.
+build	Build Release APK and AAB	2026-06-28T08:59:41.3639438Z 
+build	Build Release APK and AAB	2026-06-28T08:59:41.3639582Z * Exception is:
+build	Build Release APK and AAB	2026-06-28T08:59:41.3641792Z org.gradle.internal.cc.impl.ConfigurationCacheError: Configuration cache state could not be cached: field `__librarySourceSets__` of task `:app:mapReleaseSourceSetPaths` of type `com.android.build.gradle.tasks.MapSourceSetPathsTask`: error writing value of type 'org.gradle.api.internal.file.collections.DefaultConfigurableFileCollection'
+build	Build Release APK and AAB	2026-06-28T08:59:41.3644618Z 	at org.gradle.internal.cc.impl.problems.AbstractProblemsListener.onError(AbstractProblemsListener.kt:36)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3645862Z 	at org.gradle.internal.serialize.graph.AbstractIsolateContext.onError(Contexts.kt:267)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3647859Z 	at org.gradle.internal.serialize.graph.BeanPropertyExtensionsKt.writeNextProperty(BeanPropertyExtensions.kt:36)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3649392Z 	at org.gradle.internal.serialize.beans.services.BeanPropertyWriter.writeStateOf(BeanPropertyWriter.kt:54)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3650839Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodec$writeTask$3$2$1.invokeSuspend(TaskNodeCodec.kt:102)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3652118Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodec$writeTask$3$2$1.invoke(TaskNodeCodec.kt)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3680132Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodec$writeTask$3$2$1.invoke(TaskNodeCodec.kt)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3707975Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodecKt.withTaskOf(TaskNodeCodec.kt:235)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3725157Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodecKt.access$withTaskOf(TaskNodeCodec.kt:1)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3737579Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodec.writeTask(TaskNodeCodec.kt:96)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3767359Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodec.encode(TaskNodeCodec.kt:73)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3827503Z 	at org.gradle.internal.serialize.codecs.core.TaskNodeCodec.encode(TaskNodeCodec.kt:66)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3857528Z 	at org.gradle.internal.serialize.graph.codecs.BindingsBackedCodec.encode(BindingsBackedCodec.kt:62)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3887439Z 	at org.gradle.internal.serialize.graph.DefaultWriteContext.write(Contexts.kt:84)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3917488Z 	at org.gradle.internal.serialize.codecs.core.WorkNodeCodec.doWrite(WorkNodeCodec.kt:85)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3947461Z 	at org.gradle.internal.serialize.codecs.core.WorkNodeCodec.writeWork(WorkNodeCodec.kt:64)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3985619Z 	at org.gradle.internal.cc.impl.ConfigurationCacheState.writeWorkGraphOf(ConfigurationCacheState.kt:496)
+build	Build Release APK and AAB	2026-06-28T08:59:41.3998015Z 	at org.gradle.internal.cc.impl.ConfigurationCacheState.writeBuildContent$configuration_cache(ConfigurationCacheState.kt:457)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4000021Z 	at org.gradle.internal.cc.impl.ConfigurationCacheState.writeBuildState(ConfigurationCacheState.kt:313)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4002708Z 	at org.gradle.internal.cc.impl.ConfigurationCacheState.writeBuildsInTree(ConfigurationCacheState.kt:287)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4004872Z 	at org.gradle.internal.cc.impl.ConfigurationCacheState.writeRootBuild(ConfigurationCacheState.kt:262)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4007319Z 	at org.gradle.internal.cc.impl.ConfigurationCacheState.writeRootBuildState(ConfigurationCacheState.kt:160)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4009110Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO$writeRootBuildStateTo$1.invokeSuspend(DefaultConfigurationCacheIO.kt:173)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4011137Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO$writeRootBuildStateTo$1.invoke(DefaultConfigurationCacheIO.kt)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4013137Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO$writeRootBuildStateTo$1.invoke(DefaultConfigurationCacheIO.kt)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4015484Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO$writeConfigurationCacheState$3$1.invokeSuspend(DefaultConfigurationCacheIO.kt:227)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4018209Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO$writeConfigurationCacheState$3$1.invoke(DefaultConfigurationCacheIO.kt)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4058892Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO$writeConfigurationCacheState$3$1.invoke(DefaultConfigurationCacheIO.kt)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4101115Z 	at org.gradle.internal.serialize.graph.RunningKt$runWriteOperation$1.invokeSuspend(Running.kt:43)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4102555Z 	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4103787Z 	at kotlin.coroutines.ContinuationKt.startCoroutine(Continuation.kt:115)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4104907Z 	at org.gradle.internal.serialize.graph.RunningKt.runToCompletion(Running.kt:54)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4107117Z 	at org.gradle.internal.serialize.graph.RunningKt.runWriteOperation(Running.kt:42)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4108789Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO.writeConfigurationCacheState(DefaultConfigurationCacheIO.kt:226)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4111120Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCacheIO.writeRootBuildStateTo(DefaultConfigurationCacheIO.kt:171)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4113135Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$writeConfigurationCacheState$1.run(DefaultConfigurationCache.kt:497)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4114678Z 	at org.gradle.internal.Factories$1.create(Factories.java:31)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4116053Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withReplacedLocks(DefaultWorkerLeaseService.java:359)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4118617Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$DefaultBuildProjectRegistry.withMutableStateOfAllProjects(DefaultProjectStateRegistry.java:238)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4121252Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$DefaultBuildProjectRegistry.withMutableStateOfAllProjects(DefaultProjectStateRegistry.java:231)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4123662Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.writeConfigurationCacheState(DefaultConfigurationCache.kt:496)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4125642Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.access$writeConfigurationCacheState(DefaultConfigurationCache.kt:72)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4127941Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$saveWorkGraph$1.invoke(DefaultConfigurationCache.kt:422)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4129468Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$saveWorkGraph$1.invoke(DefaultConfigurationCache.kt:420)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4130906Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$saveToCache$1$1.invoke(DefaultConfigurationCache.kt:438)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4132367Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$saveToCache$1$1.invoke(DefaultConfigurationCache.kt:435)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4133966Z 	at org.gradle.internal.cc.impl.ConfigurationCacheRepository$StoreImpl$useForStore$1.invoke(ConfigurationCacheRepository.kt:189)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4135649Z 	at org.gradle.internal.cc.impl.ConfigurationCacheRepository$StoreImpl$useForStore$1.invoke(ConfigurationCacheRepository.kt:181)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4137948Z 	at org.gradle.internal.cc.impl.ConfigurationCacheRepository$withExclusiveAccessToCache$1.get(ConfigurationCacheRepository.kt:251)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4139714Z 	at org.gradle.cache.internal.LockOnDemandCrossProcessCacheAccess.withFileLock(LockOnDemandCrossProcessCacheAccess.java:90)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4141294Z 	at org.gradle.cache.internal.DefaultCacheCoordinator.withFileLock(DefaultCacheCoordinator.java:213)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4142766Z 	at org.gradle.cache.internal.DefaultPersistentDirectoryStore.withFileLock(DefaultPersistentDirectoryStore.java:149)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4144313Z 	at org.gradle.cache.internal.DefaultCacheFactory$ReferenceTrackingCache.withFileLock(DefaultCacheFactory.java:206)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4145990Z 	at org.gradle.internal.cc.impl.ConfigurationCacheRepository.withExclusiveAccessToCache(ConfigurationCacheRepository.kt:249)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4148044Z 	at org.gradle.internal.cc.impl.ConfigurationCacheRepository.access$withExclusiveAccessToCache(ConfigurationCacheRepository.kt:48)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4149741Z 	at org.gradle.internal.cc.impl.ConfigurationCacheRepository$StoreImpl.useForStore(ConfigurationCacheRepository.kt:181)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4151266Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$saveToCache$1.invoke(DefaultConfigurationCache.kt:435)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4152695Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$saveToCache$1.invoke(DefaultConfigurationCache.kt:434)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4154352Z 	at org.gradle.configurationcache.ConfigurationCacheBuildOperationsKt$withStoreOperation$1.run(ConfigurationCacheBuildOperations.kt:62)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4156036Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4194399Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4195856Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4197517Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4198945Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4200396Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4201823Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4203483Z 	at org.gradle.configurationcache.ConfigurationCacheBuildOperationsKt.withStoreOperation(ConfigurationCacheBuildOperations.kt:55)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4205116Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.saveToCache(DefaultConfigurationCache.kt:434)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4206696Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.saveWorkGraph(DefaultConfigurationCache.kt:420)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4225299Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.access$saveWorkGraph(DefaultConfigurationCache.kt:72)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4227163Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$loadOrScheduleRequestedTasks$1.invoke(DefaultConfigurationCache.kt:173)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4228841Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache$loadOrScheduleRequestedTasks$1.invoke(DefaultConfigurationCache.kt:171)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4230607Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.runWorkThatContributesToCacheEntry(DefaultConfigurationCache.kt:392)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4232329Z 	at org.gradle.internal.cc.impl.DefaultConfigurationCache.loadOrScheduleRequestedTasks(DefaultConfigurationCache.kt:171)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4234457Z 	at org.gradle.internal.cc.impl.ConfigurationCacheAwareBuildTreeWorkController$scheduleAndRunRequestedTasks$executionResult$1.apply(ConfigurationCacheAwareBuildTreeWorkController.kt:45)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4247309Z 	at org.gradle.internal.cc.impl.ConfigurationCacheAwareBuildTreeWorkController$scheduleAndRunRequestedTasks$executionResult$1.apply(ConfigurationCacheAwareBuildTreeWorkController.kt:44)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4249466Z 	at org.gradle.composite.internal.DefaultIncludedBuildTaskGraph.withNewWorkGraph(DefaultIncludedBuildTaskGraph.java:112)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4251439Z 	at org.gradle.internal.cc.impl.ConfigurationCacheAwareBuildTreeWorkController.scheduleAndRunRequestedTasks(ConfigurationCacheAwareBuildTreeWorkController.kt:44)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4253611Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$scheduleAndRunTasks$1(DefaultBuildTreeLifecycleController.java:77)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4255499Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$runBuild$4(DefaultBuildTreeLifecycleController.java:120)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4257367Z 	at org.gradle.internal.model.StateTransitionController.lambda$transition$6(StateTransitionController.java:169)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4258794Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4260154Z 	at org.gradle.internal.model.StateTransitionController.lambda$transition$7(StateTransitionController.java:169)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4261390Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:44)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4262604Z 	at org.gradle.internal.model.StateTransitionController.transition(StateTransitionController.java:169)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4264165Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.runBuild(DefaultBuildTreeLifecycleController.java:117)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4265973Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:77)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4268412Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:72)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4270047Z 	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:31)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4271327Z 	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4272738Z 	at org.gradle.internal.buildtree.ProblemReportingBuildActionRunner.run(ProblemReportingBuildActionRunner.java:49)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4274384Z 	at org.gradle.launcher.exec.BuildOutcomeReportingBuildActionRunner.run(BuildOutcomeReportingBuildActionRunner.java:65)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4276153Z 	at org.gradle.tooling.internal.provider.FileSystemWatchingBuildActionRunner.run(FileSystemWatchingBuildActionRunner.java:140)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4310131Z 	at org.gradle.launcher.exec.BuildCompletionNotifyingBuildActionRunner.run(BuildCompletionNotifyingBuildActionRunner.java:41)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4311880Z 	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.lambda$execute$0(RootBuildLifecycleBuildActionExecutor.java:54)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4313371Z 	at org.gradle.composite.internal.DefaultRootBuildState.run(DefaultRootBuildState.java:130)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4314801Z 	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.execute(RootBuildLifecycleBuildActionExecutor.java:54)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4316829Z 	at org.gradle.internal.buildtree.InitDeprecationLoggingActionExecutor.execute(InitDeprecationLoggingActionExecutor.java:62)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4318284Z 	at org.gradle.internal.buildtree.InitProblems.execute(InitProblems.java:36)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4319396Z 	at org.gradle.internal.buildtree.DefaultBuildTreeContext.execute(DefaultBuildTreeContext.java:40)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4320910Z 	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.lambda$execute$0(BuildTreeLifecycleBuildActionExecutor.java:71)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4322244Z 	at org.gradle.internal.buildtree.BuildTreeState.run(BuildTreeState.java:60)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4323573Z 	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.execute(BuildTreeLifecycleBuildActionExecutor.java:71)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4325482Z 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$3.call(RunAsBuildOperationBuildActionExecutor.java:61)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4327415Z 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$3.call(RunAsBuildOperationBuildActionExecutor.java:57)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4329174Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4331037Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4332696Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4334186Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4335647Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4367615Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4369179Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4370856Z 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor.execute(RunAsBuildOperationBuildActionExecutor.java:57)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4372684Z 	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.lambda$execute$0(RunAsWorkerThreadBuildActionExecutor.java:36)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4374265Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4376025Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4407922Z 	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.execute(RunAsWorkerThreadBuildActionExecutor.java:36)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4409765Z 	at org.gradle.tooling.internal.provider.continuous.ContinuousBuildActionExecutor.execute(ContinuousBuildActionExecutor.java:110)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4411615Z 	at org.gradle.tooling.internal.provider.SubscribableBuildActionExecutor.execute(SubscribableBuildActionExecutor.java:64)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4413219Z 	at org.gradle.internal.session.DefaultBuildSessionContext.execute(DefaultBuildSessionContext.java:46)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4415009Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:92)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4417556Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:80)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4419300Z 	at org.gradle.internal.session.BuildSessionState.run(BuildSessionState.java:71)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4420732Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:62)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4422956Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:41)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4425057Z 	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:64)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4427449Z 	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:32)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4429520Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4431626Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4433560Z 	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:47)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4435673Z 	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:31)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4437553Z 	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:70)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4438762Z 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4440381Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4441895Z 	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:39)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4443548Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4445102Z 	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:29)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4446847Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4448684Z 	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:35)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4518159Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4519653Z 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.lambda$execute$0(ForwardClientInput.java:40)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4521072Z 	at org.gradle.internal.daemon.clientinput.ClientInputForwarder.forwardInput(ClientInputForwarder.java:80)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4522442Z 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:37)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4524146Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4525453Z 	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:64)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4527092Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4528347Z 	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:63)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4529468Z 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4530768Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4532219Z 	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:84)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4533560Z 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4534873Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4536365Z 	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:52)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4560209Z 	at org.gradle.launcher.daemon.server.DaemonStateCoordinator.lambda$runCommand$0(DaemonStateCoordinator.java:321)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4561651Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4563251Z 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4564944Z Caused by: org.gradle.api.internal.artifacts.ivyservice.TypedResolveException: Could not resolve all files for configuration ':app:releaseRuntimeClasspath'.
+build	Build Release APK and AAB	2026-06-28T08:59:41.4566852Z 	at org.gradle.api.internal.artifacts.ResolveExceptionMapper.mapFailure(ResolveExceptionMapper.java:68)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4568263Z 	at org.gradle.api.internal.artifacts.ResolveExceptionMapper.mapFailures(ResolveExceptionMapper.java:60)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4569922Z 	at org.gradle.api.internal.artifacts.configurations.DefaultConfiguration$DefaultResolutionHost.mapFailure(DefaultConfiguration.java:1984)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4571899Z 	at org.gradle.api.internal.artifacts.configurations.ResolutionHost.rethrowFailure(ResolutionHost.java:48)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4573723Z 	at org.gradle.api.internal.artifacts.configurations.ResolutionBackedFileCollection.maybeThrowResolutionFailures(ResolutionBackedFileCollection.java:84)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4575864Z 	at org.gradle.api.internal.artifacts.configurations.ResolutionBackedFileCollection.visitContents(ResolutionBackedFileCollection.java:74)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4577892Z 	at org.gradle.api.internal.file.AbstractFileCollection.visitStructure(AbstractFileCollection.java:360)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4579338Z 	at org.gradle.internal.serialize.codecs.core.CollectingVisitor.startVisit(FileCollectionCodec.kt:185)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4580640Z 	at org.gradle.api.internal.file.AbstractFileCollection.visitStructure(AbstractFileCollection.java:359)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4581978Z 	at org.gradle.api.internal.file.CompositeFileCollection.lambda$visitContents$0(CompositeFileCollection.java:113)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4583254Z 	at org.gradle.api.internal.file.collections.UnpackingVisitor.add(UnpackingVisitor.java:67)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4584861Z 	at org.gradle.api.internal.file.collections.DefaultConfigurableFileCollection$UnresolvedItemsCollector.visitContents(DefaultConfigurableFileCollection.java:594)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4647261Z 	at org.gradle.api.internal.file.collections.DefaultConfigurableFileCollection.visitChildren(DefaultConfigurableFileCollection.java:416)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4649077Z 	at org.gradle.api.internal.file.CompositeFileCollection.visitContents(CompositeFileCollection.java:113)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4650458Z 	at org.gradle.api.internal.file.AbstractFileCollection.visitStructure(AbstractFileCollection.java:360)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4652280Z 	at org.gradle.internal.serialize.codecs.core.FileCollectionCodec.encodeViaCollectingVisitor(FileCollectionCodec.kt:76)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4653851Z 	at org.gradle.internal.serialize.codecs.core.FileCollectionCodec.encodeContents(FileCollectionCodec.kt:69)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4655438Z 	at org.gradle.internal.serialize.codecs.core.ConfigurableFileCollectionCodec.encode(ConfigurableFileCollectionCodec.kt:37)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4657334Z 	at org.gradle.internal.serialize.codecs.core.ConfigurableFileCollectionCodec.encode(ConfigurableFileCollectionCodec.kt:29)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4658795Z 	at org.gradle.internal.serialize.graph.codecs.BindingsBackedCodec.encode(BindingsBackedCodec.kt:62)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4659971Z 	at org.gradle.internal.serialize.graph.DefaultWriteContext.write(Contexts.kt:84)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4661263Z 	at org.gradle.internal.serialize.graph.BeanPropertyExtensionsKt.writeNextProperty(BeanPropertyExtensions.kt:34)
+build	Build Release APK and AAB	2026-06-28T08:59:41.4662239Z 	... 153 more
+build	Build Release APK and AAB	2026-06-28T08:59:41.4663170Z Caused by: org.gradle.internal.resolve.ModuleVersionNotFoundException: Could not find com.github.topjohnwu.libsu:core:5.2.2.
+build	Build Release APK and AAB	2026-06-28T08:59:41.4664225Z Searched in the following locations:
+build	Build Release APK and AAB	2026-06-28T08:59:41.4665025Z   - https://dl.google.com/dl/android/maven2/com/github/topjohnwu/libsu/core/5.2.2/core-5.2.2.pom
+build	Build Release APK and AAB	2026-06-28T08:59:41.4666120Z   - https://repo.maven.apache.org/maven2/com/github/topjohnwu/libsu/core/5.2.2/core-5.2.2.pom
+build	Build Release APK and AAB	2026-06-28T08:59:41.4667075Z Required by:
+build	Build Release APK and AAB	2026-06-28T08:59:41.4667402Z     project :app
+build	Build Release APK and AAB	2026-06-28T08:59:41.4667600Z 
+build	Build Release APK and AAB	2026-06-28T08:59:41.4667610Z 
+build	Build Release APK and AAB	2026-06-28T08:59:41.4667754Z BUILD FAILED in 1m 13s
+build	Build Release APK and AAB	2026-06-28T08:59:41.8272951Z ##[error]Process completed with exit code 1.
+build	Post Setup Gradle	∩╗┐2026-06-28T08:59:41.8461321Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build	Post Setup Gradle	2026-06-28T08:59:41.8462554Z Post job cleanup.
+build	Post Setup Gradle	2026-06-28T08:59:42.0356512Z In post-action step
+build	Post Setup Gradle	2026-06-28T08:59:42.0363293Z Stopping all Gradle daemons before saving Gradle User Home state
+build	Post Setup Gradle	2026-06-28T08:59:42.0364922Z (node:2547) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Post Setup Gradle	2026-06-28T08:59:42.0366130Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Post Setup Gradle	2026-06-28T08:59:42.0371423Z ##[group]Caching Gradle state
+build	Post Setup Gradle	2026-06-28T08:59:42.0511253Z Caching generated-gradle-jars with path '/home/runner/.gradle/caches/8.10.2/generated-gradle-jars/gradle-api-8.10.2.jar' and cache key: gradle-generated-gradle-jars-v1-2745217bed79d67c9856a7ed393e27bf
+build	Post Setup Gradle	2026-06-28T08:59:42.0733847Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:42.6474692Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/8.10.2/generated-gradle-jars/gradle-api-8.10.2.jar' and key: gradle-generated-gradle-jars-v1-2745217bed79d67c9856a7ed393e27bf: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0fuJAagAAAADlxnzmMyFNSpu2jUWmdoYBQ0hJMzBFREdFMDIyMABFZGdl
+build	Post Setup Gradle	2026-06-28T08:59:42.7823429Z Caching dependencies with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and cache key: gradle-dependencies-v1-2067d7718553faf7b51f9e1f826efd77
+build	Post Setup Gradle	2026-06-28T08:59:42.7897306Z Caching instrumented-jars with path '/home/runner/.gradle/caches/jars-*/*/' and cache key: gradle-instrumented-jars-v1-a28e35082f8b33a768a79c3127096ff5
+build	Post Setup Gradle	2026-06-28T08:59:42.8024739Z Caching kotlin-dsl with path '/home/runner/.gradle/caches/*/kotlin-dsl/accessors/*/
+build	Post Setup Gradle	2026-06-28T08:59:42.8026054Z /home/runner/.gradle/caches/*/kotlin-dsl/scripts/*/' and cache key: gradle-kotlin-dsl-v1-a7b09d3088c7f084f046682f74ea9b5c
+build	Post Setup Gradle	2026-06-28T08:59:42.8062206Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:42.8171996Z Caching groovy-dsl with path '/home/runner/.gradle/caches/*/groovy-dsl/*/' and cache key: gradle-groovy-dsl-v1-e23562015aa7162c30280845e0894d63
+build	Post Setup Gradle	2026-06-28T08:59:42.8385389Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:42.8506063Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/jars-*/*/' and key: gradle-instrumented-jars-v1-a28e35082f8b33a768a79c3127096ff5: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0fuJAagAAAAC7xkUHBTDYTY56/t5Ft5t4Q0hHRURHRTE3MDgARWRnZQ==
+build	Post Setup Gradle	2026-06-28T08:59:42.8568177Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:42.9018416Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/*/groovy-dsl/*/' and key: gradle-groovy-dsl-v1-e23562015aa7162c30280845e0894d63: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0fuJAagAAAAAE7j2QxuymQLSA+djO6besQ0hHRURHRTE3MTcARWRnZQ==
+build	Post Setup Gradle	2026-06-28T08:59:42.9195490Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/*/kotlin-dsl/accessors/*/
+build	Post Setup Gradle	/home/runner/.gradle/caches/*/kotlin-dsl/scripts/*/' and key: gradle-kotlin-dsl-v1-a7b09d3088c7f084f046682f74ea9b5c: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0fuJAagAAAADNHuD//2BDQaT8kB6c4yQXQ0hJMzBFREdFMDMxMwBFZGdl
+build	Post Setup Gradle	2026-06-28T08:59:43.1695527Z Caching transforms with path '/home/runner/.gradle/caches/transforms-4/*/
+build	Post Setup Gradle	2026-06-28T08:59:43.1697237Z /home/runner/.gradle/caches/*/transforms/*/' and cache key: gradle-transforms-v1-a9e77ecb227ead78368b27baa3a2bf16
+build	Post Setup Gradle	2026-06-28T08:59:43.4811591Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:43.5664960Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:44.2854047Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and key: gradle-dependencies-v1-2067d7718553faf7b51f9e1f826efd77: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0gOJAagAAAABwtPLU3PobTLP91KI6+rDSQ0hJMzBFREdFMDMwOQBFZGdl
+build	Post Setup Gradle	2026-06-28T08:59:44.5509344Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/transforms-4/*/
+build	Post Setup Gradle	/home/runner/.gradle/caches/*/transforms/*/' and key: gradle-transforms-v1-a9e77ecb227ead78368b27baa3a2bf16: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0gOJAagAAAABpHEpkqJf0Tpd8MuvcLhk/Q0hJMzBFREdFMDIyMABFZGdl
+build	Post Setup Gradle	2026-06-28T08:59:44.7295938Z Caching Gradle User Home with cache key: gradle-home-v1|Linux|build[882c05fa8cf8c918d078dc2942eb193a]-3020bc0663b0806863db3a6535314cb7f9e74316
+build	Post Setup Gradle	2026-06-28T08:59:44.7389506Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/gravityinstaller/gravityinstaller --files-from manifest.txt --use-compress-program zstdmt
+build	Post Setup Gradle	2026-06-28T08:59:44.8938898Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle' and key: gradle-home-v1|Linux|build[882c05fa8cf8c918d078dc2942eb193a]-3020bc0663b0806863db3a6535314cb7f9e74316: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0gOJAagAAAABqwC3MisntTpfMRSvPzWsFQ0hJMzBFREdFMDMxMQBFZGdl
+build	Post Setup Gradle	2026-06-28T08:59:44.8943032Z ##[endgroup]
+build	Post Setup Gradle	2026-06-28T08:59:44.8943571Z Generating Job Summary
+build	Post Setup Gradle	2026-06-28T08:59:44.8955973Z Completed post-action step
+build	Post set up JDK 17	∩╗┐2026-06-28T08:59:44.9148749Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build	Post set up JDK 17	2026-06-28T08:59:44.9150023Z Post job cleanup.
+build	Post set up JDK 17	2026-06-28T08:59:45.0498886Z (node:2615) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Post set up JDK 17	2026-06-28T08:59:45.0499875Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Post Run actions/checkout@v3	∩╗┐2026-06-28T08:59:45.0661247Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.0662541Z Post job cleanup.
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1371301Z (node:2623) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1372628Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1414325Z [command]/usr/bin/git version
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1455918Z git version 2.54.0
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1498336Z Temporarily overriding HOME='/home/runner/work/_temp/b5526540-8b07-4ad6-b9e1-82fb45dff97f' before making global git config changes
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1499699Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1502889Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gravityinstaller/gravityinstaller
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1538302Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1568502Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1789674Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1812523Z http.https://github.com/.extraheader
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1822600Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build	Post Run actions/checkout@v3	2026-06-28T08:59:45.1857787Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Complete job	∩╗┐2026-06-28T08:59:45.2204179Z Cleaning up orphan processes
+build	Complete job	2026-06-28T08:59:45.2507764Z Terminate orphan process: pid (2419) (java)
+build	Complete job	2026-06-28T08:59:45.2520604Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v3, actions/setup-java@v3, gradle/actions/setup-gradle@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
