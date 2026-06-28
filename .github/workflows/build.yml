@@ -34,15 +34,18 @@ jobs:
         echo "ADMOB_INTERSTITIAL_ID=ca-app-pub-4989086156410627/4094955965" >> .env
         echo "ADMOB_APP_OPEN_ID=ca-app-pub-4989086156410627/1105830543" >> .env
 
-    - name: Generate Release Keystore
+    - name: Decode Release Keystore
+      env:
+        ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
       run: |
-        keytool -genkey -v -keystore my-upload-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload -dname "CN=Gravity Installer, OU=Gravity, O=Gravity, L=Earth, ST=Earth, C=US" -storepass "android" -keypass "android"
+        echo $ENCODED_KEYSTORE | base64 --decode > my-upload-key.jks
 
     - name: Build Release APK and AAB
       env:
         KEYSTORE_PATH: ${{ github.workspace }}/my-upload-key.jks
-        STORE_PASSWORD: android
-        KEY_PASSWORD: android
+        STORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+        KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
       run: gradle assembleRelease bundleRelease --stacktrace
 
     - name: Upload Release APK
