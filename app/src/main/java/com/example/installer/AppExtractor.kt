@@ -105,38 +105,60 @@ object AppExtractor {
 
             // Safe file name
             val safeAppName = app.name.replace(Regex("[^a-zA-Z0-9]"), "_")
-            val fileName = "${safeAppName}_${app.versionName}.apks"
+            val isSingleApk = app.apkPaths.size == 1
+            val extension = if (isSingleApk) ".apk" else ".apks"
+            val fileName = "${safeAppName}_${app.versionName}$extension"
             val backupFile = File(backupDir, fileName)
             
-            onProgress("Packaging APK slices into standard APKS format...", 0.1f)
-            ZipOutputStream(FileOutputStream(backupFile)).use { zipOut ->
-                app.apkPaths.forEachIndexed { index, path ->
-                    val apkFile = File(path)
-                    if (apkFile.exists() && apkFile.length() > 0) {
-                        // Rename standard split files cleanly, base is base.apk, splits are split_config.xxx.apk
-                        val entryName = if (index == 0) "base.apk" else "split_${apkFile.name.substringAfterLast("_")}"
-                        
-                        val zipEntry = ZipEntry(entryName)
-                        zipOut.putNextEntry(zipEntry)
-                        
-                        val sizeBytes = apkFile.length()
-                        val startPercent = 0.1f + (index.toFloat() / app.apkPaths.size.toFloat()) * 0.75f
-                        val stepSize = 0.75f / app.apkPaths.size.toFloat()
-                        
-                        apkFile.inputStream().use { input ->
-                            val buffer = ByteArray(64 * 1024)
-                            var bytesRead: Int
-                            var totalBytesCopied = 0L
-                            while (input.read(buffer).also { bytesRead = it } != -1) {
-                                zipOut.write(buffer, 0, bytesRead)
-                                totalBytesCopied += bytesRead
-                                val sliceProgress = if (sizeBytes > 0) totalBytesCopied.toFloat() / sizeBytes.toFloat() else 0f
-                                val overallProgress = startPercent + sliceProgress * stepSize
-                                val pct = (overallProgress * 100).toInt()
-                                onProgress("Compressing slice ${index + 1} of ${app.apkPaths.size} (${apkFile.name.substringAfterLast("/")}) — $pct%...", overallProgress)
-                            }
+            if (isSingleApk) {
+                onProgress("Copying single APK file...", 0.1f)
+                val srcFile = File(app.apkPaths.first())
+                val sizeBytes = srcFile.length()
+                srcFile.inputStream().use { input ->
+                    backupFile.outputStream().use { output ->
+                        val buffer = ByteArray(64 * 1024)
+                        var bytesRead: Int
+                        var totalBytesCopied = 0L
+                        while (input.read(buffer).also { bytesRead = it } != -1) {
+                            output.write(buffer, 0, bytesRead)
+                            totalBytesCopied += bytesRead
+                            val sliceProgress = if (sizeBytes > 0) totalBytesCopied.toFloat() / sizeBytes.toFloat() else 0f
+                            val pct = (sliceProgress * 100).toInt()
+                            onProgress("Copying APK file — $pct%...", sliceProgress)
                         }
-                        zipOut.closeEntry()
+                    }
+                }
+            } else {
+                onProgress("Packaging APK slices into standard APKS format...", 0.1f)
+                ZipOutputStream(FileOutputStream(backupFile)).use { zipOut ->
+                    app.apkPaths.forEachIndexed { index, path ->
+                        val apkFile = File(path)
+                        if (apkFile.exists() && apkFile.length() > 0) {
+                            // Rename standard split files cleanly, base is base.apk, splits are split_config.xxx.apk
+                            val entryName = if (index == 0) "base.apk" else "split_${apkFile.name.substringAfterLast("_")}"
+                            
+                            val zipEntry = ZipEntry(entryName)
+                            zipOut.putNextEntry(zipEntry)
+                            
+                            val sizeBytes = apkFile.length()
+                            val startPercent = 0.1f + (index.toFloat() / app.apkPaths.size.toFloat()) * 0.75f
+                            val stepSize = 0.75f / app.apkPaths.size.toFloat()
+                            
+                            apkFile.inputStream().use { input ->
+                                val buffer = ByteArray(64 * 1024)
+                                var bytesRead: Int
+                                var totalBytesCopied = 0L
+                                while (input.read(buffer).also { bytesRead = it } != -1) {
+                                    zipOut.write(buffer, 0, bytesRead)
+                                    totalBytesCopied += bytesRead
+                                    val sliceProgress = if (sizeBytes > 0) totalBytesCopied.toFloat() / sizeBytes.toFloat() else 0f
+                                    val overallProgress = startPercent + sliceProgress * stepSize
+                                    val pct = (overallProgress * 100).toInt()
+                                    onProgress("Compressing slice ${index + 1} of ${app.apkPaths.size} (${apkFile.name.substringAfterLast("/")}) — $pct%...", overallProgress)
+                                }
+                            }
+                            zipOut.closeEntry()
+                        }
                     }
                 }
             }

@@ -68,8 +68,8 @@ import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Launch
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.Launch
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Security
@@ -1950,7 +1950,7 @@ fun InstallerOptionRow(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = "Select",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(16.dp)
@@ -2679,7 +2679,7 @@ fun AppActionDialog(
                 AppActionItem(
                     title = "Launch Application",
                     description = "Attempt to spawn primary activity using package intent resolver.",
-                    icon = Icons.Default.Launch,
+                    icon = Icons.AutoMirrored.Filled.Launch,
                     tint = Color(0xFFFBBC05),
                     onClick = { onAction("LAUNCH") }
                 )
@@ -3625,7 +3625,7 @@ fun ProgressModal(message: String, progress: Float?) {
                     
                     if (progress != null) {
                         CircularProgressIndicator(
-                            progress = progress,
+                            progress = { progress },
                             modifier = Modifier.size(68.dp),
                             strokeWidth = 4.dp,
                             color = MaterialTheme.colorScheme.primary,
@@ -3663,7 +3663,7 @@ fun ProgressModal(message: String, progress: Float?) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         LinearProgressIndicator(
-                            progress = progress,
+                            progress = { progress },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(8.dp)

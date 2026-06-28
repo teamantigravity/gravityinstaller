@@ -65,7 +65,7 @@ object AdManager {
 
     fun loadInterstitial(context: Context) {
         if (isAdFree) return
-        val adUnitId = BuildConfig.ADMOB_INTERSTITIAL_ID
+        val adUnitId = "ca-app-pub-4989086156410627/4094955965"
         if (adUnitId.isEmpty()) {
             Log.w(TAG, "Interstitial Ad Unit ID is empty.")
             return
@@ -123,7 +123,7 @@ object AdManager {
 
     fun loadAppOpen(context: Context) {
         if (isAdFree) return
-        val adUnitId = BuildConfig.ADMOB_APP_OPEN_ID
+        val adUnitId = "ca-app-pub-4989086156410627/1105830543"
         if (adUnitId.isEmpty()) {
             Log.w(TAG, "App Open Ad Unit ID is empty.")
             return
@@ -183,7 +183,7 @@ object AdManager {
 @Composable
 fun AdmobBanner(
     modifier: Modifier = Modifier,
-    adUnitId: String = BuildConfig.ADMOB_BANNER_ID
+    adUnitId: String = "ca-app-pub-4989086156410627/2211450115"
 ) {
     if (AdManager.isAdFree || adUnitId.isEmpty()) {
         return

@@ -242,11 +242,12 @@ class MainViewModel(private val context: Context) : ViewModel() {
 
         // Register installer receiver dynamically to update active queue
         val filter = IntentFilter("com.example.gravityinstaller.INSTALL_STATUS_UPDATE")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.registerReceiver(installStatusReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
-        } else {
-            context.registerReceiver(installStatusReceiver, filter)
-        }
+        androidx.core.content.ContextCompat.registerReceiver(
+            context, 
+            installStatusReceiver, 
+            filter, 
+            androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED
+        )
     }
 
     override fun onCleared() {

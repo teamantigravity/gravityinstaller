@@ -27,13 +27,6 @@ jobs:
         gradle-version: '8.10.2'
 
 
-    - name: Create .env file for Ads
-      run: |
-        echo "ADMOB_APP_ID=ca-app-pub-4989086156410627~4805823860" >> .env
-        echo "ADMOB_BANNER_ID=ca-app-pub-4989086156410627/2211450115" >> .env
-        echo "ADMOB_INTERSTITIAL_ID=ca-app-pub-4989086156410627/4094955965" >> .env
-        echo "ADMOB_APP_OPEN_ID=ca-app-pub-4989086156410627/1105830543" >> .env
-
     - name: Decode Release Keystore
       env:
         ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}

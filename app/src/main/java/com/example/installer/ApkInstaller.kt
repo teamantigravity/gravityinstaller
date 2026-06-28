@@ -334,7 +334,7 @@ object ApkInstaller {
             if (allowTestOnly) flags.append(" -t")
 
             onProgress("Creating Shizuku installation session...", 0.55f)
-            val createProcess = Shizuku.newProcess(arrayOf("sh", "-c", "pm install-create$flags"), null, null)
+            val createProcess: java.lang.Process = ShizukuRunner.newProcess(arrayOf("sh", "-c", "pm install-create$flags"), null as Array<String>?, null as String?)
             createProcess.waitFor()
             val createOutput = createProcess.inputStream.bufferedReader().use { it.readText() }
             val sessionId = "[0-9]+".toRegex().find(createOutput)?.value
@@ -343,13 +343,13 @@ object ApkInstaller {
             apkFiles.forEachIndexed { index, file ->
                 val progressVal = 0.6f + (index.toFloat() / apkFiles.size.toFloat()) * 0.3f
                 onProgress("Streaming slice ${index + 1} of ${apkFiles.size} via Shizuku...", progressVal)
-                Shizuku.newProcess(arrayOf("sh", "-c", "chmod 777 ${file.absolutePath}"), null, null).waitFor()
-                val writeProcess = Shizuku.newProcess(arrayOf("sh", "-c", "pm install-write $sessionId ${file.name} ${file.absolutePath}"), null, null)
+                ShizukuRunner.newProcess(arrayOf("sh", "-c", "chmod 777 ${file.absolutePath}"), null as Array<String>?, null as String?).waitFor()
+                val writeProcess: java.lang.Process = ShizukuRunner.newProcess(arrayOf("sh", "-c", "pm install-write $sessionId ${file.name} ${file.absolutePath}"), null as Array<String>?, null as String?)
                 writeProcess.waitFor()
             }
 
             onProgress("Committing installation session via Shizuku...", 0.95f)
-            val commitProcess = Shizuku.newProcess(arrayOf("sh", "-c", "pm install-commit $sessionId"), null, null)
+            val commitProcess: java.lang.Process = ShizukuRunner.newProcess(arrayOf("sh", "-c", "pm install-commit $sessionId"), null as Array<String>?, null as String?)
             commitProcess.waitFor()
             val commitOutput = commitProcess.inputStream.bufferedReader().use { it.readText() }
             
