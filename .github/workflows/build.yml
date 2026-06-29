@@ -27,18 +27,20 @@ jobs:
         gradle-version: '8.13'
 
 
-    - name: Decode Release Keystore
+    - name: Decode Release Keystore and Create Properties
       env:
         ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
-      run: |
-        echo $ENCODED_KEYSTORE | base64 --decode > my-upload-key.jks
-
-    - name: Build Release APK and AAB
-      env:
-        KEYSTORE_PATH: ${{ github.workspace }}/my-upload-key.jks
         STORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
         KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
         KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+      run: |
+        echo $ENCODED_KEYSTORE | base64 --decode > my-upload-key.jks
+        echo "storeFile=my-upload-key.jks" > key.properties
+        echo "storePassword=$STORE_PASSWORD" >> key.properties
+        echo "keyPassword=$KEY_PASSWORD" >> key.properties
+        echo "keyAlias=$KEY_ALIAS" >> key.properties
+
+    - name: Build Release APK and AAB
       run: gradle assembleRelease bundleRelease --stacktrace
 
     - name: Rename Artifacts
