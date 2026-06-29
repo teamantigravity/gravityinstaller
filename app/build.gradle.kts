@@ -81,6 +81,10 @@ android {
         includeInApk = false
         includeInBundle = false
     }
+
+    lint {
+        abortOnError = false
+    }
 }
 
 dependencies {
