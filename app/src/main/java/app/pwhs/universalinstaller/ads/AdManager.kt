@@ -10,6 +10,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import timber.log.Timber
+import app.pwhs.universalinstaller.billing.BillingManager
 
 object AdManager {
     private const val APP_OPEN_AD_UNIT_ID = "ca-app-pub-4989086156410627/1105830543"
@@ -21,10 +22,16 @@ object AdManager {
 
     private var interstitialAd: InterstitialAd? = null
     private var isLoadingInterstitialAd = false
+    private var lastInterstitialTime: Long = 0
+    private const val INTERSTITIAL_COOLDOWN_MS = 3 * 60 * 1000L // 3 minutes
 
     fun loadAppOpenAd(context: Context) {
         if (isLoadingAppOpenAd || isAppOpenAdAvailable()) {
             return
+        }
+        
+        if (BillingManager.getInstance(context).hasPurchasedRemoveAds.value) {
+            return // Ads are disabled
         }
 
         isLoadingAppOpenAd = true
@@ -53,6 +60,10 @@ object AdManager {
     }
 
     fun showAppOpenAdIfAvailable(activity: Activity) {
+        if (BillingManager.getInstance(activity).hasPurchasedRemoveAds.value) {
+            return
+        }
+
         if (!isShowingAppOpenAd && isAppOpenAdAvailable()) {
             appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
@@ -81,6 +92,10 @@ object AdManager {
         if (isLoadingInterstitialAd || interstitialAd != null) {
             return
         }
+        
+        if (BillingManager.getInstance(context).hasPurchasedRemoveAds.value) {
+            return
+        }
 
         isLoadingInterstitialAd = true
         val request = AdRequest.Builder().build()
@@ -106,10 +121,23 @@ object AdManager {
     }
 
     fun showInterstitialAd(activity: Activity, onAdClosed: () -> Unit = {}) {
+        if (BillingManager.getInstance(activity).hasPurchasedRemoveAds.value) {
+            onAdClosed()
+            return
+        }
+
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastInterstitialTime < INTERSTITIAL_COOLDOWN_MS) {
+            Timber.d("Interstitial ad is on cooldown.")
+            onAdClosed()
+            return
+        }
+
         if (interstitialAd != null) {
             interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     interstitialAd = null
+                    lastInterstitialTime = System.currentTimeMillis()
                     loadInterstitialAd(activity)
                     onAdClosed()
                 }

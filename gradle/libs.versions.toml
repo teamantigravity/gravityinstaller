@@ -33,6 +33,7 @@ material = "1.10.0"
 tvFoundation = "1.0.0"
 tvMaterial = "1.0.0"
 playServicesAds = "23.1.0"
+billingKtx = "7.0.0"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -125,6 +126,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "tvFoundation" }
 androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvMaterial" }
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
 
 
 [plugins]

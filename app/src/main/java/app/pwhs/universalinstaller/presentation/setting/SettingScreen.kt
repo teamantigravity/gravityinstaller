@@ -36,6 +36,7 @@ import androidx.compose.material.icons.rounded.SearchOff
 import androidx.compose.material.icons.rounded.SettingsApplications
 import androidx.compose.material.icons.rounded.Terminal
 import androidx.compose.material.icons.rounded.WifiTethering
+import androidx.compose.material.icons.rounded.WorkspacePremium
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -76,6 +77,8 @@ import app.pwhs.universalinstaller.presentation.install.controller.RootState
 import app.pwhs.universalinstaller.presentation.setting.profile.PackageNamePickerDialog
 import androidx.datastore.preferences.core.Preferences
 import org.koin.androidx.compose.koinViewModel
+import app.pwhs.universalinstaller.billing.BillingManager
+import android.app.Activity
 
 @Composable
 fun SettingScreen(
@@ -84,6 +87,7 @@ fun SettingScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = androidx.compose.ui.platform.LocalContext.current
+    val hasPurchasedRemoveAds by BillingManager.getInstance(context).hasPurchasedRemoveAds.collectAsState()
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { stringRes ->
@@ -117,6 +121,10 @@ fun SettingScreen(
         onProfilesClick = {
             context.startActivity(android.content.Intent(context, app.pwhs.universalinstaller.presentation.setting.profile.ProfileActivity::class.java))
         },
+        hasPurchasedRemoveAds = hasPurchasedRemoveAds,
+        onRemoveAdsClick = {
+            BillingManager.getInstance(context).launchBillingFlow(context as Activity)
+        },
     )
 }
 
@@ -144,6 +152,8 @@ private fun SettingUi(
     onShowDownloadTabChanged: (Boolean) -> Unit = {},
     onDefaultInstallerChanged: (Boolean) -> Unit = {},
     onProfilesClick: () -> Unit = {},
+    hasPurchasedRemoveAds: Boolean = false,
+    onRemoveAdsClick: () -> Unit = {},
 ) {
     val context = androidx.compose.ui.platform.LocalContext.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -243,7 +253,7 @@ private fun SettingUi(
             )
             val securityLabels = listOf("security", "lock", "biometric", "fingerprint", "installations", "uninstalls")
             val syncLabels = listOf("sync", "port", "pin")
-            val advancedLabels = listOf("advanced", "virustotal", "api key")
+            val advancedLabels = listOf("advanced", "virustotal", "api key", "ads", "remove", "premium")
             val aboutLabels = listOf(
                 "about", "diagnostics",
                 stringResource(R.string.setting_section_about),
@@ -644,6 +654,20 @@ private fun SettingUi(
                 // ── Advanced Options ─────────────────────────
                 if (matchesQuery(q, advancedLabels)) item {
                     SettingsSection(title = stringResource(R.string.setting_section_advanced), icon = Icons.Rounded.Terminal) {
+                        
+                        if (!hasPurchasedRemoveAds) {
+                            SearchableItem(q, "Remove Ads", "ads remove premium purchase") {
+                                ListItem(
+                                    headlineContent = { Text("Remove Ads") },
+                                    supportingContent = { Text("Purchase to remove all in-app ads permanently.") },
+                                    leadingContent = { Icon(Icons.Rounded.WorkspacePremium, null, tint = MaterialTheme.colorScheme.primary) },
+                                    modifier = Modifier.clickable(onClick = onRemoveAdsClick),
+                                    colors = ListItemDefaults.colors(containerColor = Color.Transparent)
+                                )
+                                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
+                            }
+                        }
+
                         OutlinedTextField(
                             value = uiState.virusTotalApiKey,
                             onValueChange = onVirusTotalKeyChanged,

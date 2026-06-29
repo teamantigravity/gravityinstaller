@@ -148,4 +148,5 @@ dependencies {
     
     // AdMob integration
     implementation(libs.play.services.ads)
+    implementation(libs.billing.ktx)
 }
