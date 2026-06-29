@@ -522,7 +522,7 @@
     <string name="theme_amoled_mode_subtitle">Use pitch black background in dark mode</string>
     <string name="theme_preset_title">Color ThemePreset</string>
     <string name="theme_preset_subtitle">Select a primary color scheme for app accents</string>
-    <string name="theme_preset_orange">Orange (Default)</string>
+    <string name="theme_preset_default_blue">Default Blue</string>
     <string name="theme_preset_blue">Ocean Blue</string>
     <string name="theme_preset_green">Forest Green</string>
     <string name="theme_preset_red">Crimson Red</string>

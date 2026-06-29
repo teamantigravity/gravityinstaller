@@ -246,7 +246,7 @@ private fun ThemePresetCard(
     onClick: () -> Unit
 ) {
     val primaryColor = when (preset) {
-        AppThemePreset.DefaultBlue -> Color(0xFFEA580C)
+        AppThemePreset.DefaultBlue -> Color(0xFF1A73E8)
         AppThemePreset.Blue -> Color(0xFF0284C7)
         AppThemePreset.Green -> Color(0xFF16A34A)
         AppThemePreset.Red -> Color(0xFFDC2626)
@@ -260,7 +260,7 @@ private fun ThemePresetCard(
         AppThemePreset.Purple -> Color(0xFFDB2777)
     }
     val nameRes = when (preset) {
-        AppThemePreset.DefaultBlue -> R.string.theme_preset_orange
+        AppThemePreset.DefaultBlue -> R.string.theme_preset_default_blue
         AppThemePreset.Blue -> R.string.theme_preset_blue
         AppThemePreset.Green -> R.string.theme_preset_green
         AppThemePreset.Red -> R.string.theme_preset_red

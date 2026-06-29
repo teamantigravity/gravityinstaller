@@ -1,4 +1,5 @@
 [versions]
+guava = "32.1.2-android"
 agp = "8.11.2"
 core = "2.3.0"
 coreVersion = "3.5.4"
@@ -34,6 +35,7 @@ tvMaterial = "1.0.0"
 playServicesAds = "23.1.0"
 
 [libraries]
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 bottom-sheet = { module = "io.github.raamcosta.compose-destinations:bottom-sheet", version.ref = "core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

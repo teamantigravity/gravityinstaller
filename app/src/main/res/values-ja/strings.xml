@@ -686,7 +686,7 @@
     <string name="installer_engine_root_unsupported">このビルドでは利用不可</string>
     <string name="theme_preset_title">カラーテーマ</string>
     <string name="theme_preset_subtitle">アプリのアクセントカラーを選択</string>
-    <string name="theme_preset_orange">オレンジ（デフォルト）</string>
+    <string name="theme_preset_default_blue">オレンジ（デフォルト）</string>
     <string name="theme_preset_blue">オーシャンブルー</string>
     <string name="theme_preset_green">フォレストグリーン</string>
     <string name="theme_preset_red">クリムゾンレッド</string>
