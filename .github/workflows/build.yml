@@ -41,14 +41,19 @@ jobs:
         KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
       run: gradle assembleRelease bundleRelease --stacktrace
 
+    - name: Rename Artifacts
+      run: |
+        find app/build/outputs/apk/release -name "*.apk" -exec mv {} app/build/outputs/apk/release/gravity-installer.apk \;
+        find app/build/outputs/bundle/release -name "*.aab" -exec mv {} app/build/outputs/bundle/release/gravity-installer.aab \;
+
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-apk
-        path: app/build/outputs/apk/release/app-release.apk
+        name: gravity-installer-apk
+        path: app/build/outputs/apk/release/gravity-installer.apk
 
     - name: Upload Release AAB
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-aab
-        path: app/build/outputs/bundle/release/app-release.aab
+        name: gravity-installer-aab
+        path: app/build/outputs/bundle/release/gravity-installer.aab
