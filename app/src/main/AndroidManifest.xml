@@ -2,89 +2,270 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-    <!-- Shizuku permissions -->
-    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <attribution
-        android:tag="@string/empty_attribution_tag"
-        android:label="@string/app_name" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.screen.portrait"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.screen.landscape"
+        android:required="false" />
+
+    <!-- Foreground worker for OBB copy (long-running, shown as notification). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <!-- Find automatic: scan external storage for packages -->
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
+    <!-- OBB copy on pre-Android 11 needs WRITE access. Scoped storage handles ≥30. -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
+    <!-- Used for the "Sort by last used" option in the Uninstall screen. Not runtime-
+         granted — user opens system Usage Access settings from a hint inside the app. -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.ENFORCE_UPDATE_OWNERSHIP"
+        tools:node="remove" />
+
+    <!-- Query all installed packages on Android 11+ without QUERY_ALL_PACKAGES -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
-
+        android:theme="@style/Theme.UniversalInstaller">
+        
         <!-- AdMob App ID -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4989086156410627~4805823860"/>
+
+        <!-- Launcher entry. SplashActivity owns the cold-start splash and decides whether
+             to show onboarding before handing control to MainActivity. File-open intents
+             land directly in DialogInstallActivity below so external installs never flash
+             through the launcher activity. -->
+        <activity
+            android:name=".presentation.splash.SplashActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.UniversalInstaller.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Deep-link target for shortcuts (universalinstaller://sync, ://uninstall) and
+             post-splash hand-off from SplashActivity. Kept on the Splash theme so cold
+             launches via shortcuts still get a polished system splash. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyApplication">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/Theme.UniversalInstaller.Splash" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".presentation.install.InstallActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
 
+        <!-- Dialog-style install entry point. Owns every file-open / share intent filter so
+             external apps land here directly without a router-activity hop. singleInstance
+             + excludeFromRecents keep the dialog isolated from the launcher task; the
+             translucent theme lets the calling app remain visible behind the scrim. -->
+        <activity
+            android:name=".presentation.install.DialogInstallActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/installer_dialog_label"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@style/Theme.UniversalInstaller.Dialog">
+
+            <!-- Concise intent filter for opening package files.
+                 Matches all files via pathPattern=".*" and validates extensions in code. -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file" />
-                <data android:scheme="content" />
-                <data android:mimeType="application/vnd.android.package-archive" />
-                <data android:mimeType="application/zip" />
-                <data android:mimeType="application/octet-stream" />
-            </intent-filter>
+                <action android:name="android.intent.action.INSTALL_PACKAGE" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file" />
+
                 <data android:scheme="content" />
+                <data android:scheme="file" />
                 <data android:host="*" />
-                <data android:pathPattern=".*\\.apks" />
-                <data android:pathPattern=".*\\.apkm" />
-                <data android:pathPattern=".*\\.xapk" />
-                <data android:pathPattern=".*\\.zip" />
+                <data android:pathPattern=".*" />
+
+                <data android:mimeType="application/vnd.android.package-archive" />
+                <data android:mimeType="application/vnd.apkm" />
+                <data android:mimeType="application/xapk-package-archive" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="*/*" />
             </intent-filter>
 
+            <!-- Share intents from file managers — single- and multi-file APK install.
+                 SEND intents match on MIME type only. -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/vnd.android.package-archive" />
-                <data android:mimeType="application/zip" />
-                <data android:mimeType="application/octet-stream" />
-            </intent-filter>
-
-            <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="application/vnd.android.package-archive" />
+                <data android:mimeType="application/vnd.apkm" />
+                <data android:mimeType="application/xapk-package-archive" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/zip" />
+                <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.manage.ManageActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.manage.BackupsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.manage.permissions.AppPermissionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.sync.SyncActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.sync.SendToTvActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.sync.CustomScannerActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:screenOrientation="sensorPortrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.UniversalInstaller.Scanner"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".presentation.setting.SettingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.download.DownloadHistoryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.manage.logs.UninstallLogsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.setting.language.LanguageActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.setting.profile.ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.setting.profile.edit.ProfileEditActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.setting.about.AboutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
+        <activity
+            android:name=".presentation.setting.diagnostics.DiagnosticsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniversalInstaller" />
 
-        <receiver
-            android:name=".installer.InstallationReceiver"
-            android:exported="true">
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="false"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+        <!-- WorkManager foreground service type for Android 14+. Overrides the library's
+             default declaration so our ObbCopyWorker can run as a DATA_SYNC foreground. -->
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="dataSync"
+            tools:node="merge" />
+
+        <service
+            android:name=".presentation.sync.SyncService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <service
+            android:name=".presentation.sync.SyncTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_qs_sync"
+            android:label="@string/qs_tile_sync_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
-                <action android:name="com.example.gravityinstaller.ACTION_INSTALL_COMMIT" />
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
-        </receiver>
+        </service>
+
+        <!--
+            ackpine's libsu RootService. The AAR ships the class but (by libsu's design)
+            leaves the <service> declaration to the consuming app — without it ackpine can't
+            bind the root proxy, so root installs silently fall back to the system
+            PackageInstaller (showing the confirm dialog instead of installing silently). #82
+        -->
+        <service
+            android:name="ru.solrudev.ackpine.libsu.RootProxyService"
+            android:exported="false" />
+
+        <!--
+            Our own libsu RootService (UID-0 IPC for hidden IPackageManager — set-default-installer).
+            libsu's RootService.bind() instantiates this in a root process; it must be declared
+            here or the bind silently fails.
+        -->
+        <service
+            android:name=".privileged.PrivilegedRootService"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -95,6 +276,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity
+            android:name=".presentation.setting.theme.ThemeActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
     </application>
 
 </manifest>

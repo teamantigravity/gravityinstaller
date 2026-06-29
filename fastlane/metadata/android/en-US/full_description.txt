@@ -1,0 +1,61 @@
+Gravity Installer is the ultimate Android package manager and Split APK Installer designed to handle what the system can't. Sideload split APKs, bundled archives with OBB data, and perform silent installs with ease. A premium package installer with a modern Material 3 UI.
+
+Expressive & Customizable
+- Fluid animations: Living dialogs with bouncy spring physics (inspired by InstallerX-Revived).
+- Brand identity: High-contrast Orange theme default for a professional, premium look.
+- Installer Profiles: Save and reuse combinations of install flags, spoofed installers, and target users.
+
+Supported Formats
+- APK: Standard Android packages
+- APK+: Advanced split bundles (APK+ format)
+- APKS: Split APK bundles
+- XAPK: Compressed split bundles with OBB (APKPure format)
+- APKM: Split bundles (APKMirror format)
+
+Install From Anywhere
+- Local file picker: Auto-scan storage, browse packages, or full file browser modes.
+- Remote download: Paste a URL; the package lands in Download/UniversalInstaller/ with its real filename.
+- Download history: Re-install, copy source URLs, and manage files without digging through folders.
+- App integration: Open APKs from Chrome, Gmail, or Telegram even when URLs lack extensions.
+
+Preview Before Installing
+See app name, icon, version, package, size, SDK targets, CPU architectures, languages, permissions, split count, and OBB count — all before you commit.
+
+OBB Support
+- Bundled OBBs inside XAPK/APKM are detected and copied automatically to Android/obb/.
+- Manual Attachment: Attach standalone .obb files to any APK via the preview sheet.
+- Foreground Worker: Keeps copying even if you leave the app, with progress notifications.
+- Smart fallback: Uses direct I/O, Shizuku, or SAF (per-package folder grant) as needed.
+
+Root & Shizuku Power User Features
+- Targeted User Installs: Install apps to specific profiles (Work, Island, etc.) or all users at once.
+- Silent Operations: Install or uninstall without system confirmation prompts.
+- Advanced flags: Replace existing, allow downgrade, grant all permissions, bypass low target SDK blocks.
+- Set Install Source: Spoof the installer package name so apps accept your sideload as a "Play Store" install.
+
+App Manager & Extractor
+- Full list with APK size, install date, and last-used time.
+- APK Backup: Extract and backup apps to your storage.
+- Flexible Sorting: Name, Size, Date, or Usage (ascending/descending).
+- Batch Operations: Select multiple packages via long-press for batch uninstall.
+- Quick Filter: FAB for rapid sorting; long-press to scroll to top.
+- Uninstall logs: Track success or failure reasons for every operation.
+
+Sync & Share (LAN File Server)
+- Built-in HTTP server: Share and manage packages across local Wi-Fi.
+- Web Dashboard: Download APKs to PC or upload new ones directly to your phone.
+- Real-time tracking: Monitor download progress and transfers directly in the app.
+- PIN protection: Secure your file sharing sessions from unauthorized access.
+
+Security & Privacy
+- VirusTotal: Automatic hash lookup for every file; optional full upload for unknown files (up to 650 MB).
+- Clear Verdicts: See malicious, suspicious, and harmless engine counts at a glance.
+- Offline First: No internet required for core functionality.
+- No Ads/Tracking: Fully open source with no data collection or analytics.
+
+Device Utilities
+- Storage Overview: Free and total space visible on the Install screen.
+- Install History: Detailed logs with success/failure and error reasons.
+- Progress Notifications: Stay informed during downloads, installs, and OBB copying.
+- Multi-language: Support for 15+ languages.
+

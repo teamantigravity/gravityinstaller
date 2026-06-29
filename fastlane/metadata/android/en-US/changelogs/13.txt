@@ -1,0 +1,5 @@
+- Added Italian, Greek, and Ukrainian language support with emoji flags
+- Implemented "System Default" language fallback option
+- Introduced modern splash screen using androidx-core-splashscreen
+- Enhanced Manage screen with persistent filters and improved search UX
+- Fixed UI layout issues in dialog menus

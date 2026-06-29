@@ -1,0 +1,8 @@
+- Major TV App Update: New sidebar UI, language settings, & premium web upload
+- Added 17 languages for Core and TV modules
+- Send to Server / PC feature
+- Launch app via Root/Shizuku to bypass ROM restrictions
+- Skip & Install feature, and VirusTotal clickable results
+- Auto-dismiss install dialog on success
+- Hide Advanced Install Flags if Shizuku/Root disabled
+- Bug fixes for split APKs, KernelSU, OOM

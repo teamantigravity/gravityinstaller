@@ -1,0 +1,4 @@
+- Fix incorrect Root indication on non-rooted phones (#57)
+- Fix Shizuku install on specific profiles for Android 11+ (#58)
+- Add progress dialog for APK extraction (#62)
+- Fix App Manager filter logic for disabled apps (#63)

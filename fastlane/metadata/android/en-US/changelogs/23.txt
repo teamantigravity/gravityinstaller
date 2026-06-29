@@ -1,0 +1,1 @@
+- Hotfix: Enforced strict TV-only mode in manifest (android.software.leanback=true, removed CATEGORY_LAUNCHER) to ensure Google Play Store correctly identifies and filters the app exclusively for Android TV devices.

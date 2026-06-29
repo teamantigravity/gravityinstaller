@@ -1,130 +1,146 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
-  alias(libs.plugins.android.application)
-  alias(libs.plugins.kotlin.android)
-  alias(libs.plugins.kotlin.compose)
-  alias(libs.plugins.google.devtools.ksp)
-  alias(libs.plugins.roborazzi)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.kotlinx.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
-  namespace = "com.example"
-  compileSdk = 35
+    namespace = "app.pwhs.universalinstaller"
+    compileSdk = 36
 
-  defaultConfig {
-    applicationId = "com.aistudio.gravityinstaller.kxmpzq"
-    minSdk = 24
-    targetSdk = 35
-    versionCode = 1
-    versionName = "1.0"
+    defaultConfig {
+        applicationId = "app.pwhs.universalinstaller"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 28
+        versionName = "1.9.8"
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 
-  signingConfigs {
-    create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
-    }
-    create("debugConfig") {
-      storeFile = file("${rootDir}/debug.keystore")
-      storePassword = "android"
-      keyAlias = "androiddebugkey"
-      keyPassword = "android"
-    }
-  }
+    // Load signing config from key.properties (CI/CD)
+    val keyPropertiesFile = rootProject.file("key.properties")
+    val useReleaseKeystore = keyPropertiesFile.exists()
 
-  buildTypes {
-    release {
-      isCrunchPngs = false
-      isMinifyEnabled = true
-      isShrinkResources = true
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      signingConfig = signingConfigs.getByName("release")
+    if (useReleaseKeystore) {
+        val keyProperties = Properties().apply {
+            load(keyPropertiesFile.inputStream())
+        }
+        signingConfigs {
+            create("release") {
+                storeFile = rootProject.file(keyProperties["storeFile"] as String)
+                storePassword = keyProperties["storePassword"] as String
+                keyAlias = keyProperties["keyAlias"] as String
+                keyPassword = keyProperties["keyPassword"] as String
+            }
+        }
     }
-    debug {
-      signingConfig = signingConfigs.getByName("debugConfig")
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            if (useReleaseKeystore) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
     }
-  }
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-  }
-  
-  buildFeatures {
-    compose = true
-    buildConfig = true
-  }
-  testOptions { unitTests { isIncludeAndroidResources = true } }
+
+    // Single distribution: ships libsu for real Root install support alongside Shizuku
+    // and the default system installer. The previous store/full split was removed —
+    // apps in this category on Play routinely ship Root/Shizuku/Default together, so
+    // the static-analysis concern that drove the split didn't pan out.
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+            freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
+        }
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+        aidl = true
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
 }
 
-// Removed secrets plugin configuration
-
-
-// Some unused dependencies are commented out below instead of being removed.
-// This makes it easy to add them back in the future if needed.
 dependencies {
-  implementation(libs.shizuku.api)
-  implementation(libs.shizuku.provider)
-  implementation(libs.libsu.core)
-  implementation(platform(libs.androidx.compose.bom))
-  // implementation(libs.accompanist.permissions)
-  implementation(libs.androidx.activity.compose)
-  // implementation(libs.androidx.camera.camera2)
-  // implementation(libs.androidx.camera.core)
-  // implementation(libs.androidx.camera.lifecycle)
-  // implementation(libs.androidx.camera.view)
-  implementation(libs.androidx.compose.material.icons.core)
-  implementation(libs.androidx.compose.material.icons.extended)
-  implementation(libs.androidx.compose.material3)
-  implementation(libs.androidx.compose.ui)
-  implementation(libs.androidx.compose.ui.graphics)
-  implementation(libs.androidx.compose.ui.tooling.preview)
-  implementation(libs.androidx.core.ktx)
-  // implementation(libs.androidx.datastore.preferences)
-  implementation(libs.androidx.lifecycle.runtime.compose)
-  implementation(libs.androidx.lifecycle.runtime.ktx)
-  implementation(libs.androidx.lifecycle.viewmodel.compose)
-  implementation(libs.androidx.navigation.compose)
-  implementation(libs.androidx.room.ktx)
-  implementation(libs.androidx.room.runtime)
-  implementation(libs.coil.compose)
-  implementation(libs.converter.moshi)
-  implementation(libs.kotlinx.coroutines.android)
-  implementation(libs.kotlinx.coroutines.core)
-  implementation(libs.logging.interceptor)
-  implementation(libs.moshi.kotlin)
-  implementation(libs.okhttp)
-  // implementation(libs.play.services.location)
-  implementation(libs.play.services.ads)
-  implementation(libs.billing)
-  implementation(libs.billing.ktx)
-  implementation(libs.retrofit)
-  testImplementation(libs.androidx.compose.ui.test.junit4)
-  testImplementation(libs.androidx.core)
-  testImplementation(libs.androidx.junit)
-  testImplementation(libs.junit)
-  testImplementation(libs.kotlinx.coroutines.test)
-  testImplementation(libs.robolectric)
-  testImplementation(libs.roborazzi)
-  testImplementation(libs.roborazzi.compose)
-  testImplementation(libs.roborazzi.junit.rule)
-  androidTestImplementation(platform(libs.androidx.compose.bom))
-  androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-  androidTestImplementation(libs.androidx.espresso.core)
-  androidTestImplementation(libs.androidx.junit)
-  androidTestImplementation(libs.androidx.runner)
-  debugImplementation(libs.androidx.compose.ui.test.manifest)
-  debugImplementation(libs.androidx.compose.ui.tooling)
-  "ksp"(libs.androidx.room.compiler)
-  "ksp"(libs.moshi.kotlin.codegen)
-}
+    implementation(project(":core"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.documentfile)
+    implementation(libs.androidx.biometric)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.coil.compose)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
-kotlin {
-  compilerOptions {
-    jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-  }
+    implementation(libs.bundles.ackpine)
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+
+
+    implementation(libs.bottom.sheet)
+
+    implementation(libs.timber)
+    compileOnly(libs.rikka.stub)
+    implementation(libs.hiddenapibypass)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.logging)
+
+    implementation(libs.shizuku.api)
+    implementation(libs.shizuku.provider)
+
+    implementation(libs.bundles.ackpine.libsu)
+    implementation(libs.libsu.core)
+    implementation(libs.libsu.service)
+
+    implementation(libs.nanohttpd)
+    implementation(libs.zxing.core)
+    // Open-source QR scanner (Apache-2.0) for "Send to TV" — avoids proprietary ML Kit.
+    implementation(libs.zxing.android.embedded)
+    
+    // AdMob integration
+    implementation(libs.play.services.ads)
 }

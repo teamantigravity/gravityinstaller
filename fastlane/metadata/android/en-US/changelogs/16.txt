@@ -1,0 +1,7 @@
+- Fixed a bug where Installer Profile backends were ignored if a global backend was active.
+- Refactored profile application logic for better reliability and manual selection.
+- Fixed Work Profile installation issues via a targeted manual installer.
+- Improved Split APK auto-selection logic.
+- Added full Romanian language support.
+- Added a new setting to toggle the visibility of the Download tab.
+- Fixed a race condition and improved result tracking for manual installs.

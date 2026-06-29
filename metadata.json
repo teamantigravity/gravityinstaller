@@ -1,6 +1,0 @@
-{
-  "name": "Gravity Installer",
-  "description": "A modern Material 3 rebranded installer for Split APKs, packages, and bundles, utilizing Google colors.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

@@ -1,0 +1,1 @@
+Fixed tab navigation animations on Android 14+ and improved responsiveness.

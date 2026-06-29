@@ -1,6 +1,5 @@
 *.iml
 .gradle
-.kotlin
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -14,5 +13,16 @@
 .externalNativeBuild
 .cxx
 local.properties
-.env
-debug.keystore
+.kotlin
+.gemini/
+docs/github_report_*.md
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/README.md
+Gemfile.lock
+vendor/downloads/
+InstallerX-Revived-main

@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">Gravity Installer</string>
+
+    <!-- TV Receive Screen -->
+    <string name="tv_receive_from_phone">Receive from phone</string>
+    <string name="tv_receive_step1">1.  Connect phone to the same Wi-Fi</string>
+    <string name="tv_receive_step2">2.  Scan the QR (or open the address below)</string>
+    <string name="tv_receive_step3">3.  Pick an APK — it installs here</string>
+    <string name="tv_receive_starting">Starting receiver…</string>
+    <string name="tv_receive_installing">Installing %s…</string>
+    <string name="tv_receive_installing_plain">Installing…</string>
+    <string name="tv_receive_installed_success">Installed %s ✓</string>
+    <string name="tv_receive_failed">Failed: %s</string>
+    <string name="tv_receive_received_title">Received: %s</string>
+    <string name="tv_receive_install">Install</string>
+    <string name="tv_receive_dismiss">Dismiss</string>
+    <string name="tv_receive_on_tv">On this TV</string>
+    <string name="tv_receive_allow_storage_title">Allow access to storage</string>
+    <string name="tv_receive_allow_storage_subtitle">To list APKs already downloaded on this TV</string>
+    <string name="tv_receive_no_apks">No APK files found in storage</string>
+
+    <!-- TV Settings Screen -->
+    <string name="tv_settings_title">Settings</string>
+    <string name="tv_settings_section_about">About</string>
+    <string name="tv_settings_app_name">Gravity Installer</string>
+    <string name="tv_settings_app_tagline">Install anything, anywhere</string>
+    <string name="tv_settings_version">Version %s</string>
+    <string name="tv_settings_section_install">Install</string>
+    <string name="tv_settings_allow_installs_title">Allow installs from this app</string>
+    <string name="tv_settings_allow_installs_subtitle">Open the system \'unknown sources\' setting</string>
+    <string name="tv_settings_receiver_title">Receiver</string>
+    <string name="tv_settings_receiver_subtitle">Port 8787 · token-guarded LAN upload</string>
+    <string name="tv_settings_section_device">Device</string>
+    <string name="tv_settings_device_title">This device</string>
+    <string name="tv_settings_device_info">%1$s %2$s · Android %3$s (API %4$d)</string>
+    <string name="tv_settings_section_appearance">Appearance</string>
+    <string name="tv_settings_section_language">Language</string>
+    <string name="tv_settings_section_project">Project</string>
+    <string name="tv_settings_open_source_title">Open source</string>
+    <string name="tv_settings_scan_to_view">Scan to view the project</string>
+
+    <!-- TV Manage Screen -->
+    <string name="tv_manage_title">Installed apps</string>
+    <string name="tv_manage_loading">Loading…</string>
+    <string name="tv_manage_apps_count">%d apps · select to uninstall</string>
+    <string name="tv_manage_badge_disabled">Disabled</string>
+    <string name="tv_manage_badge_system">System</string>
+    <string name="tv_manage_filter_user">User</string>
+    <string name="tv_manage_filter_system">System</string>
+    <string name="tv_manage_filter_disabled">Disabled</string>
+    <string name="tv_manage_sort_name">Name</string>
+    <string name="tv_manage_sort_size">Size</string>
+    <string name="tv_manage_sort_date">Date</string>
+    <string name="tv_manage_action_open">Open App</string>
+    <string name="tv_manage_action_uninstall">Uninstall</string>
+    <string name="tv_manage_action_extract">Extract APK</string>
+    <string name="tv_manage_action_settings">System Settings</string>
+    <string name="tv_manage_action_close">Close</string>
+    <string name="tv_manage_extracting">Extracting... %d%%</string>
+    <string name="tv_manage_extract_success">Extracted successfully!</string>
+    <string name="tv_manage_extract_error">Extraction failed: %s</string>
+    <string name="tv_manage_search_placeholder">Search apps...</string>
+    <string name="tv_manage_empty">No apps found</string>
+
+
+    <!-- TV Receiver Service -->
+    <string name="tv_receiver_channel_name">Receiver</string>
+    <string name="tv_receiver_notification_title">Ready to receive apps</string>
+    <string name="tv_receiver_notification_text">Scan the QR on your TV to send an APK</string>
+
+    <!-- TV Main Tabs -->
+    <string name="tv_app_tab_install">Install</string>
+    <string name="tv_app_tab_manage">Manage</string>
+    <string name="tv_app_tab_settings">Settings</string>
+
+    <!-- TV Common -->
+    <string name="tv_common_qr_code">QR code</string>
+    <string name="tv_common_size_gb">%.1f GB</string>
+    <string name="tv_common_size_mb">%.0f MB</string>
+    <string name="tv_common_size_kb">%.0f KB</string>
+    <string name="tv_common_size_bytes">%d B</string>
+    <string name="tv_manage_version_prefix">v%s</string>
+    <string name="install_storage_title">Storage</string>
+    <string name="install_storage_value">%1$s free / %2$s</string>
+    <string name="tv_receive_local_files">Local Downloads</string>
+    <string name="tv_receive_grant_all_files">Grant All Files Access</string>
+    <string name="tv_manage_storage_used">Storage used</string>
+    <string name="tv_manage_type">Type</string>
+    <string name="tv_manage_system_app">System Application</string>
+    <string name="tv_manage_status">Status</string>
+    <string name="tv_manage_status_disabled">Disabled</string>
+    <string name="tv_manage_extracted_success">Extracted ✓</string>
+    <string name="tv_manage_extract_error_prefix">Error: %s</string>
+</resources>

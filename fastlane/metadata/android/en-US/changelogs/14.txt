@@ -1,0 +1,9 @@
+• Expressive UI: Ported InstallerX-Revived animations.
+• Brand Identity: Orange theme and standardized icons.
+• Installer Profiles: Save/reuse custom install settings.
+• Multi-user: Support for Work profiles and other users.
+• Sync: Port and PIN settings directly in-app.
+• Modern APIs: Improved Default Installer logic.
+• Bug Fixes: VirusTotal links and source spoofing fixed.
+• Localization: Updated all 16 supported languages.
+• Performance: UI and stability optimizations.

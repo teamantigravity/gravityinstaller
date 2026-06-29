@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MyApplication" parent="android:Theme.DeviceDefault.NoActionBar" />
+    <style name="Theme.UniversalInstaller" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@null</item>
+        <!-- Match Compose surface so the gap between Activity start and Compose first
+             frame doesn't flash the Material default grey. -->
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <!-- DialogInstallActivity sits over whatever launched the install (file manager,
+         Chrome, etc.). Translucent + transparent background lets our Compose scrim handle
+         the dimming so we get full control over the colour and tap-outside dismiss. No
+         window animation because the scaffolded Card composable runs its own entry. -->
+    <style name="Theme.UniversalInstaller.Dialog" parent="Theme.UniversalInstaller">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- Edge-to-edge: let Compose handle system bar padding -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Cold-start splash. AndroidX core-splashscreen handles the system-level splash on
+         all API levels, so MainActivity launches straight onto the branded background +
+         icon instead of the Material default grey. installSplashScreen() in onCreate
+         swaps to Theme.UniversalInstaller for the rest of the Activity lifetime. -->
+    <style name="Theme.UniversalInstaller.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.UniversalInstaller</item>
+    </style>
+
+    <style name="Theme.UniversalInstaller.Scanner" parent="Theme.UniversalInstaller">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

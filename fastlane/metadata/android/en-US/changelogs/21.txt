@@ -1,0 +1,1 @@
+- Hotfix: Removed restricted permissions (UPDATE_PACKAGES_WITHOUT_USER_ACTION and ENFORCE_UPDATE_OWNERSHIP) from the Android TV manifest to strictly comply with Google Play Store policies.

@@ -1,24 +1,36 @@
 # Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
 
-# Keep classes for AndroidX and Compose to prevent UI crashes
--keep class androidx.** { *; }
--keep interface androidx.** { *; }
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
 
-# Keep Coroutines to prevent flow/suspend crashes
--keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
--keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
--keep class kotlinx.coroutines.** { *; }
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
 
-# Keep Billing Client (In-App Purchases)
--keep class com.android.billingclient.** { *; }
--keep interface com.android.billingclient.** { *; }
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
 
-# Keep Shizuku & Libsu classes since they rely on IPC/Reflection heavily
--keep class dev.rikka.shizuku.** { *; }
--keep interface dev.rikka.shizuku.** { *; }
+# libsu (com.topjohnwu.superuser) — full flavor only. Harmless on store (no-op when
+# the class is absent). Kept defensively because JitPack-built artifacts occasionally
+# drop consumer-rules in ways that break reflective shell plumbing under R8. If a
+# release `full` build ever regresses to "NOT_ROOTED" while debug works, look here first.
 -keep class com.topjohnwu.superuser.** { *; }
--keep interface com.topjohnwu.superuser.** { *; }
+-keep class com.topjohnwu.superuser.internal.** { *; }
+-dontwarn com.topjohnwu.superuser.**
 
-# Keep AdMob classes
--keep class com.google.android.gms.ads.** { *; }
--keep class com.google.ads.** { *; }
+# Shizuku.newProcess is package-private; we reach it via reflection to run one-shot `pm`
+# commands without building a full UserService/AIDL layer. R8 would otherwise rename the
+# method and break ShizukuShellExecutor silently in release builds.
+-keepclassmembers class rikka.shizuku.Shizuku {
+    private static *** newProcess(...);
+}

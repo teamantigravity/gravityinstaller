@@ -1,0 +1,8 @@
+- Auto-trigger installation after parsing files
+- Skip & Install option is restricted to standard APKs
+- Expandable failed installation cards with copy log action
+- Applied application theme preferences to dialog flow
+- Supported multiple theme presets (Orange, Blue, Green, etc.)
+- Added scrollable shimmer skeletons to prevent UI squishing
+- Portuguese (Brazil) translation updates
+- Fixed reinstall application logic
