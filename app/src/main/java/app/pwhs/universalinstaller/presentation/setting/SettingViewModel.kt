@@ -44,7 +44,7 @@ data class SettingThemeState(
     val mode: ThemeMode = ThemeMode.System,
     val dynamicColor: Boolean = false,
     val amoledMode: Boolean = false,
-    val themePreset: AppThemePreset = AppThemePreset.Orange
+    val themePreset: AppThemePreset = AppThemePreset.DefaultBlue
 )
 
 object PreferencesKeys {
@@ -203,7 +203,7 @@ data class SettingUiState(
     val themeMode: ThemeMode = ThemeMode.System,
     val dynamicColor: Boolean = false,
     val amoledMode: Boolean = false,
-    val themePreset: AppThemePreset = AppThemePreset.Orange,
+    val themePreset: AppThemePreset = AppThemePreset.DefaultBlue,
     val useShizuku: Boolean = false,
     val useRoot: Boolean = false,
     val virusTotalApiKey: String = "",
@@ -679,8 +679,8 @@ class SettingViewModel(
             val mode = ThemeMode.entries.find { it.name == modeName } ?: ThemeMode.System
             val dynamicColor = prefs[PreferencesKeys.DYNAMIC_COLOR] ?: false
             val amoledMode = prefs[PreferencesKeys.AMOLED_MODE] ?: false
-            val presetName = prefs[PreferencesKeys.THEME_PRESET] ?: AppThemePreset.Orange.name
-            val preset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
+            val presetName = prefs[PreferencesKeys.THEME_PRESET] ?: AppThemePreset.DefaultBlue.name
+            val preset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.DefaultBlue
             SettingThemeState(mode, dynamicColor, amoledMode, preset)
         },
         dataStore.data.map { it[PreferencesKeys.USE_SHIZUKU] ?: false },

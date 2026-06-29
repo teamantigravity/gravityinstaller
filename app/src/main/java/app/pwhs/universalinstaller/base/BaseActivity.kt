@@ -65,8 +65,8 @@ abstract class BaseActivity : FragmentActivity() {
                     val mode = ThemeMode.entries.find { it.name == name } ?: ThemeMode.System
                     val dynamicColor = prefs[booleanPreferencesKey("dynamic_color")] ?: false
                     val amoledMode = prefs[booleanPreferencesKey("amoled_mode")] ?: false
-                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.Orange.name
-                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
+                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.DefaultBlue.name
+                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.DefaultBlue
                     AppThemeState(mode, dynamicColor, amoledMode, themePreset)
                 }
             }
@@ -77,8 +77,8 @@ abstract class BaseActivity : FragmentActivity() {
                     val mode = ThemeMode.entries.find { it.name == name } ?: ThemeMode.System
                     val dynamicColor = prefs[booleanPreferencesKey("dynamic_color")] ?: false
                     val amoledMode = prefs[booleanPreferencesKey("amoled_mode")] ?: false
-                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.Orange.name
-                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
+                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.DefaultBlue.name
+                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.DefaultBlue
                     AppThemeState(mode, dynamicColor, amoledMode, themePreset)
                 }
             }

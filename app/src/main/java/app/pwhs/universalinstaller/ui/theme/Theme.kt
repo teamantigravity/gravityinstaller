@@ -86,8 +86,8 @@ private val DarkColorScheme = darkColorScheme(
     surfaceContainerHighest = SurfaceContainerHighestDark,
 )
 
-private val OrangeLightColorScheme = LightColorScheme
-private val OrangeDarkColorScheme = DarkColorScheme
+private val DefaultBlueLightColorScheme = LightColorScheme
+private val DefaultBlueDarkColorScheme = DarkColorScheme
 
 private val BlueLightColorScheme = LightColorScheme.copy(
     primary = Color(0xFF0284C7),
@@ -163,7 +163,7 @@ private val PurpleDarkColorScheme = DarkColorScheme.copy(
 
 private fun getPresetColorScheme(darkTheme: Boolean, preset: AppThemePreset): ColorScheme {
     return when (preset) {
-        AppThemePreset.Orange -> if (darkTheme) OrangeDarkColorScheme else OrangeLightColorScheme
+        AppThemePreset.DefaultBlue -> if (darkTheme) DefaultBlueDarkColorScheme else DefaultBlueLightColorScheme
         AppThemePreset.Blue -> if (darkTheme) BlueDarkColorScheme else BlueLightColorScheme
         AppThemePreset.Green -> if (darkTheme) GreenDarkColorScheme else GreenLightColorScheme
         AppThemePreset.Red -> if (darkTheme) RedDarkColorScheme else RedLightColorScheme
@@ -210,7 +210,7 @@ fun UniversalInstallerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = false,
     amoledMode: Boolean = false,
-    themePreset: AppThemePreset = AppThemePreset.Orange,
+    themePreset: AppThemePreset = AppThemePreset.DefaultBlue,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

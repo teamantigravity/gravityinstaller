@@ -313,8 +313,8 @@ class DialogInstallActivity : ComponentActivity() {
             val themeMode = ThemeMode.entries.find { it.name == themeModeName } ?: ThemeMode.System
             val dynamicColor = prefs?.get(booleanPreferencesKey("dynamic_color")) ?: false
             val amoledMode = prefs?.get(booleanPreferencesKey("amoled_mode")) ?: false
-            val presetName = prefs?.get(stringPreferencesKey("theme_preset")) ?: AppThemePreset.Orange.name
-            val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
+            val presetName = prefs?.get(stringPreferencesKey("theme_preset")) ?: AppThemePreset.DefaultBlue.name
+            val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.DefaultBlue
 
             val darkTheme = when (themeMode) {
                 ThemeMode.System -> isSystemInDarkTheme()

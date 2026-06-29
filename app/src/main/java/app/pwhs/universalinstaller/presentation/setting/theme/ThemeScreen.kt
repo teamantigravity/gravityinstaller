@@ -64,7 +64,7 @@ private fun ThemeUi(
     themeMode: ThemeMode = ThemeMode.System,
     dynamicColor: Boolean = false,
     amoledMode: Boolean = false,
-    themePreset: AppThemePreset = AppThemePreset.Orange,
+    themePreset: AppThemePreset = AppThemePreset.DefaultBlue,
     onThemeChanged: (ThemeMode) -> Unit = {},
     onDynamicColorChanged: (Boolean) -> Unit = {},
     onAmoledModeChanged: (Boolean) -> Unit = {},
@@ -246,21 +246,21 @@ private fun ThemePresetCard(
     onClick: () -> Unit
 ) {
     val primaryColor = when (preset) {
-        AppThemePreset.Orange -> Color(0xFFEA580C)
+        AppThemePreset.DefaultBlue -> Color(0xFFEA580C)
         AppThemePreset.Blue -> Color(0xFF0284C7)
         AppThemePreset.Green -> Color(0xFF16A34A)
         AppThemePreset.Red -> Color(0xFFDC2626)
         AppThemePreset.Purple -> Color(0xFF7C3AED)
     }
     val secondaryColor = when (preset) {
-        AppThemePreset.Orange -> Color(0xFF3B82F6)
+        AppThemePreset.DefaultBlue -> Color(0xFF3B82F6)
         AppThemePreset.Blue -> Color(0xFF0F766E)
         AppThemePreset.Green -> Color(0xFF0891B2)
         AppThemePreset.Red -> Color(0xFFD97706)
         AppThemePreset.Purple -> Color(0xFFDB2777)
     }
     val nameRes = when (preset) {
-        AppThemePreset.Orange -> R.string.theme_preset_orange
+        AppThemePreset.DefaultBlue -> R.string.theme_preset_orange
         AppThemePreset.Blue -> R.string.theme_preset_blue
         AppThemePreset.Green -> R.string.theme_preset_green
         AppThemePreset.Red -> R.string.theme_preset_red

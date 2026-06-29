@@ -1,7 +1,7 @@
 package app.pwhs.core.domain
 
 enum class AppThemePreset(val label: String) {
-    Orange("Orange"),
+    DefaultBlue("Default Blue"),
     Blue("Blue"),
     Green("Green"),
     Red("Red"),
