@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = "app.pwhs.universalinstaller"
+    namespace = "com.teamantigravity.gravityinstaller"
     compileSdk = 36
 
     defaultConfig {

@@ -1,0 +1,90 @@
+package com.teamantigravity.gravityinstaller
+
+import android.app.Application
+import coil3.ImageLoader
+import coil3.SingletonImageLoader
+import com.teamantigravity.gravityinstaller.di.appModule
+import com.teamantigravity.gravityinstaller.di.flavorModule
+import com.teamantigravity.gravityinstaller.presentation.install.controller.BackendSelfHeal
+import com.teamantigravity.gravityinstaller.presentation.install.controller.InstallerBackendFactory
+import com.teamantigravity.gravityinstaller.util.ApkFileIconFetcher
+import com.teamantigravity.gravityinstaller.util.AppIconFetcher
+import com.teamantigravity.gravityinstaller.util.CrashHandler
+import com.topjohnwu.superuser.Shell
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
+import timber.log.Timber
+
+class App : Application(), SingletonImageLoader.Factory {
+
+    init {
+        // libsu setup MUST run before the first Shell.getShell() (ackpine's libsu plugin and
+        // our RootServices both rely on it). A companion init runs at class-load, before
+        // onCreate and any shell use. MOUNT_MASTER so install/uninstall changes apply in the
+        // global mount namespace; without an explicit builder libsu's first shell could be
+        // created non-root and cached, making root installs silently fall back to the system
+        // PackageInstaller (the "shows a confirm dialog like PackageInstaller" bug). #82
+        Shell.enableVerboseLogging = BuildConfig.DEBUG
+        Shell.setDefaultBuilder(
+            Shell.Builder.create()
+                .setFlags(Shell.FLAG_MOUNT_MASTER)
+                .setTimeout(10),
+        )
+    }
+
+    private val backendFactory: InstallerBackendFactory by inject()
+
+    override fun onCreate() {
+        super.onCreate()
+        CrashHandler.install(this)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+        startKoin{
+            androidLogger()
+            androidContext(this@App)
+            modules(appModule, flavorModule)
+        }
+        
+        // Initialize AdMob
+        com.google.android.gms.ads.MobileAds.initialize(this) {}
+        
+        // Pre-load AppOpen ad and Interstitial ad
+        com.teamantigravity.gravityinstaller.ads.AdManager.loadAppOpenAd(this)
+        com.teamantigravity.gravityinstaller.ads.AdManager.loadInterstitialAd(this)
+
+        // Show AppOpen ad when activities start
+        registerActivityLifecycleCallbacks(object : android.app.Application.ActivityLifecycleCallbacks {
+            override fun onActivityStarted(activity: android.app.Activity) {
+                com.teamantigravity.gravityinstaller.ads.AdManager.showAppOpenAdIfAvailable(activity)
+            }
+            override fun onActivityCreated(activity: android.app.Activity, savedInstanceState: android.os.Bundle?) {}
+            override fun onActivityResumed(activity: android.app.Activity) {}
+            override fun onActivityPaused(activity: android.app.Activity) {}
+            override fun onActivityStopped(activity: android.app.Activity) {}
+            override fun onActivitySaveInstanceState(activity: android.app.Activity, outState: android.os.Bundle) {}
+            override fun onActivityDestroyed(activity: android.app.Activity) {}
+        })
+
+        // Self-heal stale install-method prefs (Root revoked, Shizuku not running). Runs
+        // once per process on a background dispatcher; never blocks app start.
+        CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
+            BackendSelfHeal.runOnce(this@App, backendFactory)
+        }
+    }
+
+    override fun newImageLoader(context: android.content.Context): ImageLoader {
+        return ImageLoader.Builder(context)
+            .components {
+                add(AppIconFetcher.Factory(context))
+                add(ApkFileIconFetcher.Factory(context))
+            }
+            .build()
+    }
+}

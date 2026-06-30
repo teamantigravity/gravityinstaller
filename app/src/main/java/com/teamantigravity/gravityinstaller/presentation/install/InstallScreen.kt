@@ -1,0 +1,616 @@
+package com.teamantigravity.gravityinstaller.presentation.install
+
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import com.teamantigravity.gravityinstaller.presentation.setting.PreferencesKeys
+import com.teamantigravity.core.data.local.dataStore
+import com.teamantigravity.gravityinstaller.util.BiometricGate
+import kotlinx.coroutines.flow.map
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Shield
+import androidx.compose.material.icons.rounded.WifiTethering
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.teamantigravity.gravityinstaller.IntentHandoff
+import com.teamantigravity.gravityinstaller.R
+import com.teamantigravity.gravityinstaller.data.local.InstallHistoryEntity
+import com.teamantigravity.gravityinstaller.presentation.composable.InstallerModeBadge
+import com.teamantigravity.gravityinstaller.presentation.composable.SessionCard
+import com.teamantigravity.gravityinstaller.util.extension.getDisplayName
+import org.koin.androidx.compose.koinViewModel
+import ru.solrudev.ackpine.splits.ApkSplits.validate
+import ru.solrudev.ackpine.splits.SplitPackage
+import ru.solrudev.ackpine.splits.SplitPackage.Companion.toSplitPackage
+import ru.solrudev.ackpine.splits.ZippedApkSplits
+import timber.log.Timber
+
+@Composable
+fun InstallScreen(
+    modifier: Modifier = Modifier,
+    viewModel: InstallViewModel = koinViewModel(),
+) {
+    val context = LocalContext.current
+    val resource = LocalResources.current
+    val uiState by viewModel.uiState.collectAsState()
+    val history by viewModel.history.collectAsState()
+    val installGateEnabled by remember(context) {
+        // Read the Settings toggle as a Flow so a change in Settings applies on the next
+        // confirm without restarting the screen.
+        context.dataStore.data.map {
+            it[PreferencesKeys.BIOMETRIC_LOCK_INSTALL] ?: false
+        }
+    }.collectAsState(initial = false)
+
+    val showDownloadTab by remember(context) {
+        context.dataStore.data.map {
+            it[PreferencesKeys.SHOW_DOWNLOAD_TAB] ?: true
+        }
+    }.collectAsState(initial = true)
+
+    // Risk consent gate — populated when the user taps Install on a downgrade or
+    // a VirusTotal-flagged APK. We render an AlertDialog over the rest of the screen
+    // and only proceed to the biometric gate + confirmInstall after they acknowledge.
+    var pendingRisks by remember { mutableStateOf<List<com.teamantigravity.gravityinstaller.presentation.install.dialog.InstallRisk>>(emptyList()) }
+
+    val proceedWithBiometric: () -> Unit = {
+        val activity = context as? androidx.fragment.app.FragmentActivity
+        if (activity != null) {
+            BiometricGate.authenticate(
+                activity = activity,
+                enabled = installGateEnabled,
+                title = resource.getString(R.string.biometric_install_title),
+                subtitle = resource.getString(R.string.biometric_install_sub),
+                onSuccess = viewModel::confirmInstall,
+                onCancel = viewModel::dismissPendingInstall,
+            )
+        } else {
+            viewModel.confirmInstall()
+        }
+    }
+
+    if (pendingRisks.isNotEmpty()) {
+        com.teamantigravity.gravityinstaller.presentation.install.dialog.RiskConfirmDialog(
+            risks = pendingRisks,
+            onConfirm = {
+                pendingRisks = emptyList()
+                proceedWithBiometric()
+            },
+            onCancel = {
+                pendingRisks = emptyList()
+                viewModel.dismissPendingInstall()
+            },
+        )
+    }
+
+    InstallUi(
+        modifier = modifier,
+        uiState = uiState,
+        history = history,
+        showDownloadTab = showDownloadTab,
+        onFilePicked = { uri, splitPackage, fileName ->
+            viewModel.parseApkInfo(context, uri, splitPackage, fileName)
+        },
+        onDownloadFromUrl = { url -> viewModel.downloadFromUrl(context, url) },
+        onCancelDownload = viewModel::cancelDownload,
+        onDismissDownloadError = viewModel::dismissDownloadError,
+        onConfirmInstall = {
+            // Risk gate FIRST so the user sees what they're acknowledging — biometric
+            // prompts that follow then feel like a confirmation of an explicit choice
+            // rather than a surprise after fingerprint auth completes.
+            val info = uiState.pendingApkInfo
+            val risks = if (info != null) {
+                com.teamantigravity.gravityinstaller.presentation.install.dialog.detectInstallRisks(info)
+            } else emptyList()
+            if (risks.isNotEmpty()) {
+                pendingRisks = risks
+            } else {
+                proceedWithBiometric()
+            }
+        },
+        onDismissPreview = viewModel::dismissPendingInstall,
+        onCancel = viewModel::cancelSession,
+        onRetry = viewModel::retrySession,
+        onClearHistory = viewModel::clearHistory,
+        onCheckVirusTotal = { viewModel.scanVirusTotal(context) },
+        onStartDeviceScan = { viewModel.startDeviceScan(context) },
+        onDismissDeviceScan = viewModel::dismissDeviceScan,
+        onPickFromScan = { found -> viewModel.pickFromScan(context, found) },
+        onPickManyFromScan = { found -> viewModel.pickManyFromScan(context, found) },
+        onDeleteScannedFiles = { found -> viewModel.deleteFoundFiles(context, found) },
+        onDismissObbCopy = viewModel::dismissObbCopy,
+        onAttachObb = { uri -> viewModel.attachObbFile(context, uri) },
+        onRemoveObb = { obb -> viewModel.removeAttachedObb(obb.uri) },
+        onGrantObbFolder = viewModel::onObbTreeGranted,
+        obbTreeHintUri = viewModel::obbTreeHintUri,
+        onOpenDownloadHistory = {
+            context.startActivity(android.content.Intent(context, com.teamantigravity.gravityinstaller.presentation.download.DownloadHistoryActivity::class.java))
+        },
+        onBatchPicked = { uris -> viewModel.parseBatch(context, uris) },
+        onBatchToggleEntry = viewModel::toggleBatchSelection,
+        onBatchToggleAll = viewModel::setBatchAllSelected,
+        onBatchConfirm = viewModel::confirmBatchInstall,
+        onBatchDismiss = viewModel::dismissBatchInstall,
+        onSkipBatchParse = viewModel::skipBatchParseAndInstall,
+        onSkipParseSingle = viewModel::skipParseAndInstallSingle,
+        onToggleSplit = viewModel::toggleSplit,
+        onOpenSyncServer = {
+            context.startActivity(android.content.Intent(context, com.teamantigravity.gravityinstaller.presentation.sync.SyncActivity::class.java))
+        },
+        onSetMergeSplits = viewModel::setMergeSplits,
+        onProfileSelected = { profile ->
+            // selectProfile accepts null, so "None" in the batch picker clears the selection.
+            viewModel.selectProfile(profile?.id)
+        },
+        onMappingChanged = viewModel::setAppProfileMapping,
+        onToggleAllUsers = viewModel::setAllUsers,
+        onSelectUserId = viewModel::setUserId,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun InstallUi(
+    modifier: Modifier = Modifier,
+    uiState: InstallUiState = InstallUiState(),
+    history: List<InstallHistoryEntity> = emptyList(),
+    showDownloadTab: Boolean = true,
+    onFilePicked: (uri: Uri, splitPackage: SplitPackage.Provider, fileName: String) -> Unit = { _, _, _ -> },
+    onDownloadFromUrl: (String) -> Unit = {},
+    onCancelDownload: () -> Unit = {},
+    onDismissDownloadError: () -> Unit = {},
+    onConfirmInstall: () -> Unit = {},
+    onDismissPreview: () -> Unit = {},
+    onCancel: (java.util.UUID) -> Unit = {},
+    onRetry: (java.util.UUID) -> Unit = {},
+    onClearHistory: () -> Unit = {},
+    onCheckVirusTotal: () -> Unit = {},
+    onStartDeviceScan: () -> Unit = {},
+    onDismissDeviceScan: () -> Unit = {},
+    onPickFromScan: (FoundPackageFile) -> Unit = {},
+    onPickManyFromScan: (List<FoundPackageFile>) -> Unit = {},
+    onDeleteScannedFiles: (List<FoundPackageFile>) -> Unit = {},
+    onDismissObbCopy: () -> Unit = {},
+    onAttachObb: (Uri) -> Unit = {},
+    onRemoveObb: (AttachedObb) -> Unit = {},
+    onGrantObbFolder: (Uri?) -> Unit = {},
+    obbTreeHintUri: () -> Uri? = { null },
+    onOpenDownloadHistory: () -> Unit = {},
+    onBatchPicked: (List<Uri>) -> Unit = {},
+    onBatchToggleEntry: (Uri) -> Unit = {},
+    onBatchToggleAll: (Boolean) -> Unit = {},
+    onBatchConfirm: () -> Unit = {},
+    onBatchDismiss: () -> Unit = {},
+    onSkipBatchParse: () -> Unit = {},
+    onSkipParseSingle: () -> Unit = {},
+    onToggleSplit: (Int) -> Unit = {},
+    onOpenSyncServer: () -> Unit = {},
+    onSetMergeSplits: (Boolean) -> Unit = { },
+    onProfileSelected: (com.teamantigravity.gravityinstaller.domain.model.InstallerProfile?) -> Unit = {},
+    onMappingChanged: (String, String?) -> Unit = { _, _ -> },
+    onToggleAllUsers: (Boolean) -> Unit = {},
+    onSelectUserId: (Int?) -> Unit = {},
+) {
+    val context = LocalContext.current
+    val resource = LocalResources.current
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+    // "strict" means validate extension strictly against known package types; "permissive" accepts anything.
+    var strictPickerMode by remember { mutableStateOf(true) }
+
+    val filePickerLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
+            if (uris.isEmpty()) return@rememberLauncherForActivityResult
+
+            // Batch flow: 2+ files go through BatchInstallSheet where user can deselect
+            // individual items and see per-row parse errors.
+            if (uris.size >= 2) {
+                uris.forEach { u ->
+                    runCatching {
+                        context.contentResolver.takePersistableUriPermission(
+                            u, Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                        )
+                    }
+                }
+                onBatchPicked(uris)
+                return@rememberLauncherForActivityResult
+            }
+
+            val uri = uris.first()
+            try {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                )
+            } catch (_: Exception) { /* some providers don't support persistable permissions */ }
+            val mimeType = context.contentResolver.getType(uri)?.lowercase()
+            val displayName = context.contentResolver.getDisplayName(uri)
+            val extension = displayName.substringAfterLast('.', "").lowercase()
+            val validExtensions = listOf("apk", "apks", "xapk", "apkm", "apk+", "zip")
+            val isApkMime = mimeType == "application/vnd.android.package-archive"
+
+            if (strictPickerMode && !isApkMime && extension !in validExtensions) {
+                Toast.makeText(
+                    context,
+                    resource.getString(R.string.install_unsupported_file),
+                    Toast.LENGTH_LONG
+                ).show()
+                return@rememberLauncherForActivityResult
+            }
+
+            Timber.d("Selected file: $uri, MIME type: $mimeType, strict: $strictPickerMode")
+            val apks = when {
+                (isApkMime || extension == "apk") -> SingletonApkSequence(
+                    uri,
+                    context
+                ).toSplitPackage()
+
+                extension in listOf("apks", "xapk", "apkm", "apk+", "zip") -> ZippedApkSplits.getApksForUri(
+                    uri,
+                    context
+                )
+                    .validate()
+                    .toSplitPackage()
+                    .filterCompatible(context)
+
+                else -> {
+                    // Browse all: unknown extension. Try treating as APK — ackpine will error
+                    // cleanly if it's not a real package.
+                    SingletonApkSequence(uri, context).toSplitPackage()
+                }
+            }
+            onFilePicked(uri, apks, displayName)
+        }
+
+    // OBB picker — reuses the manifest OpenDocument contract. We don't filter MIME strictly
+    // (.obb has no standard MIME), so the VM validates extension on attach.
+    val obbPickerLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenMultipleDocuments()
+    ) { uris ->
+        uris.forEach { onAttachObb(it) }
+    }
+
+    // SAF folder picker for granting access to /Android/obb/<pkg>/ when Shizuku isn't
+    // available. Result is passed straight to the VM which validates the chosen folder
+    // matches the target package and persists the grant.
+    val obbTreeLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocumentTree()
+    ) { uri -> onGrantObbFolder(uri) }
+
+    var selectedTab by rememberSaveable { mutableStateOf(SourceTab.Local) }
+
+    // Consume URIs delivered via ACTION_VIEW (Chrome downloads, file managers, Gmail). We
+    // strict-validate the extension here because the manifest filter also accepts
+    // `application/octet-stream`, which covers many non-package binaries.
+    val pendingViewUri by IntentHandoff.pendingUri.collectAsState()
+    LaunchedEffect(pendingViewUri) {
+        val uri = pendingViewUri ?: return@LaunchedEffect
+        IntentHandoff.consume()
+        try {
+            val mimeType = context.contentResolver.getType(uri)?.lowercase()
+            val displayName = context.contentResolver.getDisplayName(uri)
+            val extension = displayName.substringAfterLast('.', "").lowercase()
+            val validExtensions = listOf("apk", "apks", "xapk", "apkm", "apk+", "zip")
+            val isApkMime = mimeType == "application/vnd.android.package-archive"
+            if (!isApkMime && extension !in validExtensions) {
+                Toast.makeText(
+                    context,
+                    resource.getString(R.string.install_unsupported_file),
+                    Toast.LENGTH_LONG,
+                ).show()
+                return@LaunchedEffect
+            }
+            val apks = when {
+                (isApkMime || extension == "apk") -> SingletonApkSequence(uri, context).toSplitPackage()
+                extension in listOf("apks", "xapk", "apkm", "apk+", "zip") -> ZippedApkSplits.getApksForUri(uri, context)
+                    .validate()
+                    .toSplitPackage()
+                    .filterCompatible(context)
+                else -> SingletonApkSequence(uri, context).toSplitPackage()
+            }
+            onFilePicked(uri, apks, displayName)
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to process intent URI: $uri")
+            Toast.makeText(
+                context,
+                resource.getString(R.string.install_unsupported_file),
+                Toast.LENGTH_LONG,
+            ).show()
+        }
+    }
+
+    // Batch share (`ACTION_SEND_MULTIPLE`) — hand the URIs to the VM's batch parser.
+    val pendingViewUris by IntentHandoff.pendingUris.collectAsState()
+    LaunchedEffect(pendingViewUris) {
+        val uris = pendingViewUris ?: return@LaunchedEffect
+        IntentHandoff.consumeBatch()
+        if (uris.size >= 2) onBatchPicked(uris)
+    }
+
+    // Plain-text share (browser share sheet → APK download URL). Switch to the Download
+    // tab so the user can see the running progress, then kick off the existing
+    // download-from-URL flow (which validates the URL and surfaces errors in the UI).
+    val pendingDownloadUrl by IntentHandoff.pendingDownloadUrl.collectAsState()
+    LaunchedEffect(pendingDownloadUrl) {
+        val url = pendingDownloadUrl ?: return@LaunchedEffect
+        IntentHandoff.consumeDownloadUrl()
+        selectedTab = SourceTab.Download
+        onDownloadFromUrl(url)
+    }
+
+    val grantPermissionLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            // Re-check on return — user may or may not have granted.
+            onStartDeviceScan()
+        }
+
+    // The launcher callback only fires when the user comes back from system Settings via the
+    // Back button. PermissionMonitor's REORDER_TO_FRONT / notification paths bypass the
+    // launcher entirely, so without this resume-effect the sheet would stay stuck in
+    // PermissionNeeded until the user closes and re-opens it. Re-trigger the scan on every
+    // resume while the sheet is in PermissionNeeded — `startDeviceScan` itself re-checks the
+    // permission and is cheap to call.
+    val isAwaitingStoragePermission = uiState.scanState is ScanState.PermissionNeeded
+    LifecycleResumeEffect(isAwaitingStoragePermission) {
+        if (isAwaitingStoragePermission && ApkScanner.hasAllFilesAccess(context)) {
+            onStartDeviceScan()
+        }
+        onPauseOrDispose {}
+    }
+
+    FoundApksSheet(
+        scanState = uiState.scanState,
+        onDismiss = onDismissDeviceScan,
+        onGrantPermission = {
+            grantPermissionLauncher.launch(ApkScanner.buildGrantIntent(context))
+        },
+        onRescan = onStartDeviceScan,
+        onPick = onPickFromScan,
+        onPickMany = onPickManyFromScan,
+        onDeleteMany = onDeleteScannedFiles,
+    )
+
+    // APK Info Preview Bottom Sheet
+    if (uiState.pendingApkInfo != null) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ModalBottomSheet(
+            onDismissRequest = onDismissPreview,
+            sheetState = sheetState,
+            shape = MaterialTheme.shapes.extraLarge,
+        ) {
+            ApkInfoContent(
+                apkInfo = uiState.pendingApkInfo,
+                onInstall = onConfirmInstall,
+                onCancel = onDismissPreview,
+                onCheckVirusTotal = onCheckVirusTotal,
+                attachedObbFiles = uiState.attachedObbFiles,
+                onAttachObb = { obbPickerLauncher.launch(arrayOf("*/*")) },
+                onRemoveObb = onRemoveObb,
+                onToggleSplit = onToggleSplit,
+                profiles = uiState.installerProfiles,
+                appProfileMapping = uiState.appProfileMapping,
+                allUsers = uiState.allUsers,
+                selectedUserId = uiState.selectedUserId,
+                onProfileSelected = onProfileSelected,
+                onMappingChanged = onMappingChanged,
+                onToggleAllUsers = onToggleAllUsers,
+                onSelectUserId = onSelectUserId,
+                startCompact = true,
+            )
+        }
+    }
+
+    BatchInstallSheet(
+        state = uiState.batchState,
+        mergeSplits = uiState.mergeSplits,
+        profiles = uiState.installerProfiles,
+        selectedProfileId = uiState.selectedProfileId,
+        onProfileSelected = onProfileSelected,
+        onDismiss = onBatchDismiss,
+        onToggleEntry = onBatchToggleEntry,
+        onToggleAll = onBatchToggleAll,
+        onToggleMerge = onSetMergeSplits,
+        onConfirm = onBatchConfirm,
+        onSkipParse = onSkipBatchParse,
+    )
+
+    var showPermissions by remember { mutableStateOf(false) }
+    PermissionCenterSheet(
+        visible = showPermissions,
+        onDismiss = { showPermissions = false },
+    )
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        topBar = {
+            LargeTopAppBar(
+                expandedHeight = 140.dp,
+                title = {
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = stringResource(R.string.fab_install),
+                            style = MaterialTheme.typography.headlineMedium,
+                        )
+                        InstallerModeBadge()
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+                },
+                actions = {
+                    val isSyncRunning = uiState.syncState == com.teamantigravity.gravityinstaller.presentation.sync.SyncState.RUNNING
+                    IconButton(
+                        onClick = onOpenSyncServer,
+                        modifier = if (isSyncRunning) Modifier.background(
+                            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f),
+                            CircleShape
+                        ) else Modifier
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.WifiTethering,
+                            contentDescription = stringResource(R.string.setting_section_sync),
+                            tint = if (isSyncRunning) MaterialTheme.colorScheme.primary else LocalContentColor.current
+                        )
+                    }
+                    IconButton(onClick = { showPermissions = true }) {
+                        Icon(
+                            imageVector = Icons.Rounded.Shield,
+                            contentDescription = stringResource(R.string.permissions_menu_cd),
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                ),
+            )
+        },
+    ) { innerPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            item(key = "storage") { StorageCard() }
+
+            if (uiState.obbCopyState !is ObbCopyState.Idle) {
+                item(key = "obb_copy") {
+                    ObbCopyCard(
+                        state = uiState.obbCopyState,
+                        onDismiss = onDismissObbCopy,
+                        onGrantFolder = {
+                            @Suppress("DEPRECATION")
+                            obbTreeLauncher.launch(obbTreeHintUri())
+                        },
+                    )
+                }
+            }
+
+            item(key = "source_picker") {
+                SourcePicker(
+                    selectedTab = selectedTab,
+                    onTabChange = { selectedTab = it },
+                    showDownloadTab = showDownloadTab,
+                    isParsing = uiState.isLoading,
+                    onSkipParse = if (uiState.isApk) onSkipParseSingle else null,
+                    downloadState = uiState.downloadState,
+                    onFindAutomatic = onStartDeviceScan,
+                    onBrowsePackages = {
+                        strictPickerMode = true
+                        filePickerLauncher.launch(arrayOf("*/*"))
+                    },
+                    onBrowseAll = {
+                        strictPickerMode = false
+                        filePickerLauncher.launch(arrayOf("*/*"))
+                    },
+                    onStartDownload = onDownloadFromUrl,
+                    onCancelDownload = onCancelDownload,
+                    onDismissDownloadError = onDismissDownloadError,
+                    onOpenDownloadHistory = onOpenDownloadHistory,
+                )
+            }
+
+            // Active sessions
+            if (uiState.sessions.isNotEmpty()) {
+                item(key = "sessions_header") {
+                    Text(
+                        text = stringResource(R.string.install_sessions_header),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(top = 4.dp),
+                    )
+                }
+                items(
+                    items = uiState.sessions,
+                    key = { it.id }
+                ) { session ->
+                    val sessionProgress =
+                        uiState.sessionsProgress.find { it.id == session.id }
+                    SessionCard(
+                        sessionData = session,
+                        sessionProgress = sessionProgress,
+                        onCancel = { onCancel(session.id) },
+                        onRetry = { onRetry(session.id) },
+                        modifier = Modifier.animateItem(),
+                    )
+                }
+            }
+
+            // Install history
+            if (history.isNotEmpty()) {
+                item(key = "history_header") {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = stringResource(R.string.install_history_header),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                        TextButton(onClick = onClearHistory) {
+                            Text(stringResource(R.string.install_history_clear), style = MaterialTheme.typography.labelMedium)
+                        }
+                    }
+                }
+                items(
+                    items = history,
+                    key = { "history_${it.id}" }
+                ) { entry ->
+                    HistoryCard(
+                        entry = entry,
+                        modifier = Modifier.animateItem(),
+                    )
+                }
+            }
+        }
+    }
+}

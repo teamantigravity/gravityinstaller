@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "app.pwhs.core"
+    namespace = "com.teamantigravity.core"
     compileSdk = 36
 
     defaultConfig {

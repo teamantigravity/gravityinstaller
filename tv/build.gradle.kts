@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "app.pwhs.tv"
+    namespace = "com.teamantigravity.gravityinstaller.tv"
     compileSdk = 36
 
     defaultConfig {
