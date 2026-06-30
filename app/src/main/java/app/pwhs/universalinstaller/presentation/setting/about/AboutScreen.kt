@@ -141,7 +141,7 @@ private fun AboutUi(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.logo),
+                        painter = painterResource(R.mipmap.ic_launcher),
                         contentDescription = null,
                         modifier = Modifier.size(72.dp),
                         tint = androidx.compose.ui.graphics.Color.Unspecified,
@@ -165,30 +165,6 @@ private fun AboutUi(
             }
             item { HorizontalDivider() }
 
-            // ── APP ──
-            item { AboutSectionLabel(stringResource(R.string.about_section_app)) }
-            item {
-                AboutRowPainter(
-                    iconPainter = painterResource(R.drawable.ic_google_play_circle),
-                    title = stringResource(R.string.setting_rate_title),
-                    subtitle = stringResource(R.string.setting_rate_subtitle),
-                    onClick = {
-                        uriHandler.openUri("https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller")
-                    },
-                )
-            }
-            item { AboutRowDivider() }
-            item {
-                AboutRow(
-                    icon = Icons.Rounded.Favorite,
-                    title = stringResource(R.string.setting_sponsor_title),
-                    subtitle = stringResource(R.string.setting_sponsor_subtitle),
-                    iconTint = MaterialTheme.colorScheme.error,
-                    onClick = { uriHandler.openUri("https://github.com/sponsors/pass-with-high-score") },
-                )
-            }
-            item { HorizontalDivider(modifier = Modifier.padding(top = 8.dp)) }
-
             // ── COMMUNITY ──
             item { AboutSectionLabel(stringResource(R.string.about_section_community)) }
             item {
@@ -196,7 +172,7 @@ private fun AboutUi(
                     icon = Icons.Rounded.Public,
                     title = stringResource(R.string.setting_website_title),
                     subtitle = stringResource(R.string.setting_website_subtitle),
-                    onClick = { uriHandler.openUri("https://universal-installer.pwhs.app/") },
+                    onClick = { uriHandler.openUri("https://teamantigravity.vercel.app/") },
                 )
             }
             item { AboutRowDivider() }
@@ -205,16 +181,7 @@ private fun AboutUi(
                     iconPainter = painterResource(R.drawable.ic_github),
                     title = stringResource(R.string.setting_github_title),
                     subtitle = stringResource(R.string.setting_github_subtitle),
-                    onClick = { uriHandler.openUri("https://github.com/pass-with-high-score/universal-installer") },
-                )
-            }
-            item { AboutRowDivider() }
-            item {
-                AboutRowPainter(
-                    iconPainter = painterResource(R.drawable.ic_telegram),
-                    title = stringResource(R.string.setting_telegram_title),
-                    subtitle = stringResource(R.string.setting_telegram_subtitle),
-                    onClick = { uriHandler.openUri("https://t.me/blockads_android") },
+                    onClick = { uriHandler.openUri("https://github.com/teamantigravity/gravityinstaller") },
                 )
             }
             item { AboutRowDivider() }
@@ -222,8 +189,8 @@ private fun AboutUi(
                 AboutRow(
                     icon = Icons.Rounded.Person,
                     title = stringResource(R.string.about_creator_title),
-                    subtitle = stringResource(R.string.about_creator_subtitle),
-                    onClick = { uriHandler.openUri("https://github.com/pass-with-high-score") },
+                    subtitle = "Team Antigravity",
+                    onClick = { uriHandler.openUri("https://teamantigravity.vercel.app/") },
                 )
             }
             item { HorizontalDivider(modifier = Modifier.padding(top = 8.dp)) }

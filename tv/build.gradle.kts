@@ -12,11 +12,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "app.pwhs.universalinstaller.tv"
+        applicationId = "com.teamantigravity.gravityinstaller.tv"
         minSdk = 24
         targetSdk = 36
-        versionCode = 24
-        versionName = "1.9.4"
+        versionCode = 1
+        versionName = "1.0"
 
     }
 

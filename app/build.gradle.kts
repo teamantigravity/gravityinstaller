@@ -15,11 +15,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "app.pwhs.universalinstaller"
+        applicationId = "com.teamantigravity.gravityinstaller"
         minSdk = 24
         targetSdk = 36
-        versionCode = 28
-        versionName = "1.9.8"
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

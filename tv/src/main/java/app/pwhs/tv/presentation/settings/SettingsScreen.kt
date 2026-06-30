@@ -62,7 +62,7 @@ import app.pwhs.core.domain.ThemeMode
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-private const val REPO_URL = "https://github.com/pass-with-high-score/universal-installer"
+private const val REPO_URL = "https://github.com/teamantigravity/gravityinstaller"
 
 
 /**
@@ -241,7 +241,7 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
             SettingsCard(onClick = {}) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        painter = painterResource(R.drawable.logo),
+                        painter = painterResource(R.mipmap.ic_launcher),
                         contentDescription = null,
                         modifier = Modifier
                             .size(80.dp)
