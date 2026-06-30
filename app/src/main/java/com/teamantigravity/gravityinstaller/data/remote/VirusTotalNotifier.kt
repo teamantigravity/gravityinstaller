@@ -97,7 +97,7 @@ class VirusTotalNotifier(private val context: Context) {
 
     private fun baseBuilder(): NotificationCompat.Builder =
         NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo_no_gradient)
+            .setSmallIcon(R.mipmap.ic_launcher_no_gradient)
             .setCategory(NotificationCompat.CATEGORY_PROGRESS)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSilent(true)

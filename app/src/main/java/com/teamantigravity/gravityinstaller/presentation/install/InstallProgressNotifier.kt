@@ -176,7 +176,7 @@ class InstallProgressNotifier(
             )
         }
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo_no_gradient)
+            .setSmallIcon(R.mipmap.ic_launcher_no_gradient)
             .setContentTitle(args.title)
             .setContentText(args.text)
             .setCategory(NotificationCompat.CATEGORY_PROGRESS)
@@ -200,7 +200,7 @@ class InstallProgressNotifier(
         val appLabel = entry.appName.ifBlank { entry.packageName }
         val text = if (success) appLabel else errorText?.takeIf { it.isNotBlank() }?.let { "$appLabel · $it" } ?: appLabel
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo_no_gradient)
+            .setSmallIcon(R.mipmap.ic_launcher_no_gradient)
             .setContentTitle(title)
             .setContentText(text)
             .setStyle(NotificationCompat.BigTextStyle().bigText(text))

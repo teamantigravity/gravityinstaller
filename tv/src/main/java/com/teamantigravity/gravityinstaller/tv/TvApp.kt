@@ -92,7 +92,7 @@ fun TvApp(modifier: Modifier = Modifier) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Box(Modifier.width(56.dp), contentAlignment = Alignment.Center) {
                                 Icon(
-                                    painter = painterResource(R.drawable.logo),
+                                    painter = painterResource(R.mipmap.ic_launcher),
                                     contentDescription = null,
                                     modifier = Modifier.size(32.dp),
                                     tint = Color.Unspecified
